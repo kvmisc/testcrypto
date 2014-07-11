@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NSData+RSA.h"
 
 @interface TKViewController : UIViewController {
+  NSString *_publicKey;
+  NSString *_privateKey;
 }
 
 @end
