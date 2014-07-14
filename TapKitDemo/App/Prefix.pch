@@ -17,4 +17,7 @@
 
   #import <TapKit/TapKit.h>
 
+  #import "Helpers.h"
+  #import "Macros.h"
+
 #endif

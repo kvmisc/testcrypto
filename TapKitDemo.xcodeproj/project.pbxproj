@@ -52,6 +52,8 @@
 		0A29578B1933865900E29848 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0A2957F4193387AD00E29848 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		0AA8A947194F2C2D0046BF4A /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		230A7A91197374B30014A5BB /* Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helpers.h; sourceTree = "<group>"; };
+		230A7A94197374C20014A5BB /* Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
 		23DFC2BA196FEEEB00DA6932 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		23DFC2BB196FEEEB00DA6932 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		23DFC2BC196FEEEB00DA6932 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -241,6 +243,8 @@
 			children = (
 				23DFC2B9196FEEEB00DA6932 /* App */,
 				23DFC2C4196FEEEB00DA6932 /* Sections */,
+				230A7A8A1973748B0014A5BB /* Helpers */,
+				230A7A8C1973748B0014A5BB /* Macros */,
 				23DFC2C2196FEEEB00DA6932 /* Resources */,
 				23DFC2C7196FEEEB00DA6932 /* Vendors */,
 			);
@@ -254,6 +258,22 @@
 				0A2957F4193387AD00E29848 /* libsqlite3.dylib */,
 			);
 			name = Dependencies;
+			sourceTree = "<group>";
+		};
+		230A7A8A1973748B0014A5BB /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				230A7A91197374B30014A5BB /* Helpers.h */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		230A7A8C1973748B0014A5BB /* Macros */ = {
+			isa = PBXGroup;
+			children = (
+				230A7A94197374C20014A5BB /* Macros.h */,
+			);
+			path = Macros;
 			sourceTree = "<group>";
 		};
 		23DFC2B9196FEEEB00DA6932 /* App */ = {
