@@ -11,6 +11,7 @@
 		0A29578C1933865900E29848 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A29578B1933865900E29848 /* UIKit.framework */; };
 		0A2957F5193387AD00E29848 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A2957F4193387AD00E29848 /* libsqlite3.dylib */; };
 		0AA8A948194F2C2D0046BF4A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AA8A947194F2C2D0046BF4A /* MobileCoreServices.framework */; };
+		230A7A9919737B690014A5BB /* NSData+AES.m in Sources */ = {isa = PBXBuildFile; fileRef = 230A7A9819737B690014A5BB /* NSData+AES.m */; };
 		23DFC2F7196FEEEB00DA6932 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 23DFC2BB196FEEEB00DA6932 /* AppDelegate.m */; };
 		23DFC2F9196FEEEB00DA6932 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 23DFC2BD196FEEEB00DA6932 /* main.m */; };
 		23DFC2FA196FEEEB00DA6932 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23DFC2C3196FEEEB00DA6932 /* Images.xcassets */; };
@@ -54,6 +55,8 @@
 		0AA8A947194F2C2D0046BF4A /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		230A7A91197374B30014A5BB /* Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helpers.h; sourceTree = "<group>"; };
 		230A7A94197374C20014A5BB /* Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
+		230A7A9719737B690014A5BB /* NSData+AES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+AES.h"; sourceTree = "<group>"; };
+		230A7A9819737B690014A5BB /* NSData+AES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+AES.m"; sourceTree = "<group>"; };
 		23DFC2BA196FEEEB00DA6932 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		23DFC2BB196FEEEB00DA6932 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		23DFC2BC196FEEEB00DA6932 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -308,6 +311,8 @@
 				23DFC2C6196FEEEB00DA6932 /* TKViewController.m */,
 				23DFC36B196FF25D00DA6932 /* NSData+RSA.h */,
 				23DFC36C196FF25D00DA6932 /* NSData+RSA.m */,
+				230A7A9719737B690014A5BB /* NSData+AES.h */,
+				230A7A9819737B690014A5BB /* NSData+AES.m */,
 			);
 			path = Sections;
 			sourceTree = "<group>";
@@ -549,6 +554,7 @@
 				23DFC304196FEEEB00DA6932 /* TKDatabase.m in Sources */,
 				23DFC2F7196FEEEB00DA6932 /* AppDelegate.m in Sources */,
 				23DFC2FC196FEEEB00DA6932 /* NSArrayAdditions.m in Sources */,
+				230A7A9919737B690014A5BB /* NSData+AES.m in Sources */,
 				23DFC30B196FEEEB00DA6932 /* UIButtonAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

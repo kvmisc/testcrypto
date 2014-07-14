@@ -76,7 +76,8 @@
   NSLog(@"[Encrypt] input: %d", [data length]);
   
   NSDate *date = [NSDate date];
-  NSData *result = [data RSAEncryptWithPublicKey:_publicKey];
+  NSData *result = [data RSAEncryptWithKey:_privateKey type:1];
+  //NSData *result = [data RSAEncryptWithKey:_publicKey type:0];
   NSLog(@"[Encrypt] time: %f", [[NSDate date] timeIntervalSinceDate:date]);
   
   NSLog(@"[Encrypt] result:%d", [result length]);
@@ -100,7 +101,8 @@
   NSLog(@"[Decrypt] input: %d", [data length]);
   
   NSDate *date = [NSDate date];
-  NSData *result = [data RSADecryptWithPrivateKey:_privateKey];
+  NSData *result = [data RSADecryptWithKey:_publicKey type:0];
+  //NSData *result = [data RSADecryptWithKey:_privateKey type:1];
   NSLog(@"[Decrypt] time: %f", [[NSDate date] timeIntervalSinceDate:date]);
   
   NSLog(@"[Decrypt] result: %d", [result length]);

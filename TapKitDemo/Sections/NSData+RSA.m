@@ -12,14 +12,14 @@
 
 @implementation NSData (RSA)
 
-- (NSData *)RSAEncryptWithPublicKey:(NSString *)publicKey
+- (NSData *)RSAEncryptWithKey:(NSString *)key type:(int)type
 {
   NSMutableData *result = [[NSMutableData alloc] init];
   
-  RSA *pub_rsa = [self publicRSAWithKey:publicKey];
+  RSA *rsa = [self RSAWithKey:key type:type];
   
-  if ( pub_rsa ) {
-    int blk_size = RSA_size(pub_rsa) - 11;
+  if ( rsa ) {
+    int blk_size = RSA_size(rsa) - 11;
     int blk_count = ceil([self length] / (CGFloat)blk_size);
     
     unsigned char read_buf[1024];
@@ -32,7 +32,12 @@
       [self getBytes:read_buf range:NSMakeRange(loc, len)];
       
       memset(parse_buf, 0, 1024);
-      int parse_count = RSA_public_encrypt(len, read_buf, parse_buf, pub_rsa, RSA_PKCS1_PADDING);
+      int parse_count = 0;
+      if ( type==0 ) {
+        parse_count = RSA_public_encrypt(len, read_buf, parse_buf, rsa, RSA_PKCS1_PADDING);
+      } else {
+        parse_count = RSA_private_encrypt(len, read_buf, parse_buf, rsa, RSA_PKCS1_PADDING);
+      }
       
       [result appendBytes:parse_buf length:parse_count];
     }
@@ -42,14 +47,14 @@
   return result;
 }
 
-- (NSData *)RSADecryptWithPrivateKey:(NSString *)privateKey
+- (NSData *)RSADecryptWithKey:(NSString *)key type:(int)type
 {
   NSMutableData *result = [[NSMutableData alloc] init];
   
-  RSA *pri_rsa = [self privateRSAWithKey:privateKey];
+  RSA *rsa = [self RSAWithKey:key type:type];
   
-  if ( pri_rsa ) {
-    int blk_size = RSA_size(pri_rsa);
+  if ( rsa ) {
+    int blk_size = RSA_size(rsa);
     int blk_count = [self length] / blk_size;
     
     if ( ([self length] % blk_size) == 0 ) {
@@ -61,7 +66,12 @@
         [self getBytes:read_buf range:NSMakeRange((i*blk_size), blk_size)];
         
         memset(parse_buf, 0, 1024);
-        int parse_count = RSA_private_decrypt(blk_size, read_buf, parse_buf, pri_rsa, RSA_PKCS1_PADDING);
+        int parse_count = 0;
+        if ( type==0 ) {
+          parse_count = RSA_public_decrypt(blk_size, read_buf, parse_buf, rsa, RSA_PKCS1_PADDING);
+        } else {
+          parse_count = RSA_private_decrypt(blk_size, read_buf, parse_buf, rsa, RSA_PKCS1_PADDING);
+        }
         
         [result appendBytes:parse_buf length:parse_count];
       }
@@ -72,42 +82,23 @@
   return result;
 }
 
-- (NSData *)RSAEncryptWithPrivateKey:(NSString *)publicKey
-{
-  return nil;
-}
-- (NSData *)RSADecryptWithPublicKey:(NSString *)publicKey
-{
-  return nil;
-}
 
 
-- (RSA *)publicRSAWithKey:(NSString *)publicKey
+- (RSA *)RSAWithKey:(NSString *)key type:(int)type
 {
-  if ( [publicKey length]<=0 ) {
-    return NULL;
+  RSA *rsa = NULL;
+  
+  if ( [key length]>0 ) {
+    const char *str = [key UTF8String];
+    
+    BIO *bio = BIO_new_mem_buf((void *)str, strlen(str));
+    if ( type==0 ) {
+      rsa = PEM_read_bio_RSA_PUBKEY(bio, NULL, 0, NULL);
+    } else {
+      rsa = PEM_read_bio_RSAPrivateKey(bio, NULL, 0, NULL);
+    }
+    BIO_free(bio);
   }
-  
-  const char *key = [publicKey UTF8String];
-  
-  BIO *bio = BIO_new_mem_buf((void *)key, strlen(key));
-  RSA *rsa = PEM_read_bio_RSA_PUBKEY(bio, NULL, 0, NULL);
-  BIO_free(bio);
-  
-  return rsa;
-}
-
-- (RSA *)privateRSAWithKey:(NSString *)privateKey
-{
-  if ( [privateKey length]<=0 ) {
-    return NULL;
-  }
-  
-  const char *key = [privateKey UTF8String];
-  
-  BIO *bio = BIO_new_mem_buf((void *)key, strlen(key));
-  RSA *rsa = PEM_read_bio_RSAPrivateKey(bio, NULL, 0, NULL);
-  BIO_free(bio);
   
   return rsa;
 }
