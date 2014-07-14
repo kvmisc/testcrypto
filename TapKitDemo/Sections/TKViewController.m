@@ -48,7 +48,7 @@
 
 - (void)doit1:(id)sender
 {
-  NSString *path = TKPathForBundleResource(nil, @"plain.txt");
+  NSString *path = TKPathForBundleResource(nil, @"medium.jpg");
   NSData *input = [[NSData alloc] initWithContentsOfFile:path];
   [self privateDecrypt:[self publicEncrypt:input]];
 }
@@ -85,7 +85,7 @@
   
   NSLog(@"[Encrypt] result:%d", [result length]);
   
-  NSString *path = TKPathForDocumentResource(@"pub_encrypt.txt");
+  NSString *path = TKPathForDocumentResource(@"pub_encrypt.jpg");
   [result writeToFile:path atomically:YES];
   
   
@@ -111,7 +111,7 @@
   
   NSLog(@"[Decrypt] result: %d", [result length]);
   
-  NSString *path = TKPathForDocumentResource(@"pri_decrypt.txt");
+  NSString *path = TKPathForDocumentResource(@"pri_decrypt.jpg");
   [result writeToFile:path atomically:YES];
   
   

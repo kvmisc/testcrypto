@@ -13,8 +13,6 @@
 		0AA8A948194F2C2D0046BF4A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AA8A947194F2C2D0046BF4A /* MobileCoreServices.framework */; };
 		230A7A9919737B690014A5BB /* NSData+AES.m in Sources */ = {isa = PBXBuildFile; fileRef = 230A7A9819737B690014A5BB /* NSData+AES.m */; };
 		230A7A9B1973A76F0014A5BB /* plain.txt in Resources */ = {isa = PBXBuildFile; fileRef = 230A7A9A1973A76F0014A5BB /* plain.txt */; };
-		230A7ABC1973BCAE0014A5BB /* crypto-example.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 230A7AB81973BCAE0014A5BB /* crypto-example.cpp */; };
-		230A7ABD1973BCAE0014A5BB /* crypto-file-example.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 230A7AB91973BCAE0014A5BB /* crypto-file-example.cpp */; };
 		230A7ABE1973BCAE0014A5BB /* Crypto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 230A7ABA1973BCAE0014A5BB /* Crypto.cpp */; };
 		23DFC2F7196FEEEB00DA6932 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 23DFC2BB196FEEEB00DA6932 /* AppDelegate.m */; };
 		23DFC2F9196FEEEB00DA6932 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 23DFC2BD196FEEEB00DA6932 /* main.m */; };
@@ -62,8 +60,6 @@
 		230A7A9719737B690014A5BB /* NSData+AES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+AES.h"; sourceTree = "<group>"; };
 		230A7A9819737B690014A5BB /* NSData+AES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+AES.m"; sourceTree = "<group>"; };
 		230A7A9A1973A76F0014A5BB /* plain.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = plain.txt; sourceTree = "<group>"; };
-		230A7AB81973BCAE0014A5BB /* crypto-example.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "crypto-example.cpp"; sourceTree = "<group>"; };
-		230A7AB91973BCAE0014A5BB /* crypto-file-example.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "crypto-file-example.cpp"; sourceTree = "<group>"; };
 		230A7ABA1973BCAE0014A5BB /* Crypto.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Crypto.cpp; sourceTree = "<group>"; };
 		230A7ABB1973BCAE0014A5BB /* Crypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Crypto.h; sourceTree = "<group>"; };
 		23DFC2BA196FEEEB00DA6932 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -323,8 +319,6 @@
 				23DFC36C196FF25D00DA6932 /* NSData+RSA.m */,
 				230A7A9719737B690014A5BB /* NSData+AES.h */,
 				230A7A9819737B690014A5BB /* NSData+AES.m */,
-				230A7AB81973BCAE0014A5BB /* crypto-example.cpp */,
-				230A7AB91973BCAE0014A5BB /* crypto-file-example.cpp */,
 				230A7ABB1973BCAE0014A5BB /* Crypto.h */,
 				230A7ABA1973BCAE0014A5BB /* Crypto.cpp */,
 			);
@@ -548,7 +542,6 @@
 				23DFC30F196FEEEB00DA6932 /* UIViewAdditions.m in Sources */,
 				23DFC307196FEEEB00DA6932 /* TKMemoryCache.m in Sources */,
 				23DFC310196FEEEB00DA6932 /* UIViewControllerAdditions.m in Sources */,
-				230A7ABC1973BCAE0014A5BB /* crypto-example.cpp in Sources */,
 				23DFC303196FEEEB00DA6932 /* TKCompatibility.m in Sources */,
 				23DFC2F9196FEEEB00DA6932 /* main.m in Sources */,
 				23DFC308196FEEEB00DA6932 /* TKNAIManager.m in Sources */,
@@ -569,7 +562,6 @@
 				23DFC2FE196FEEEB00DA6932 /* NSDateAdditions.m in Sources */,
 				23DFC2FB196FEEEB00DA6932 /* TKViewController.m in Sources */,
 				23DFC304196FEEEB00DA6932 /* TKDatabase.m in Sources */,
-				230A7ABD1973BCAE0014A5BB /* crypto-file-example.cpp in Sources */,
 				23DFC2F7196FEEEB00DA6932 /* AppDelegate.m in Sources */,
 				23DFC2FC196FEEEB00DA6932 /* NSArrayAdditions.m in Sources */,
 				230A7A9919737B690014A5BB /* NSData+AES.m in Sources */,
