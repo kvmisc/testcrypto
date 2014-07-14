@@ -241,9 +241,6 @@
 			children = (
 				23DFC2B9196FEEEB00DA6932 /* App */,
 				23DFC2C4196FEEEB00DA6932 /* Sections */,
-				23DFC2BF196FEEEB00DA6932 /* General */,
-				23DFC2C0196FEEEB00DA6932 /* Helpers */,
-				23DFC2C1196FEEEB00DA6932 /* Macros */,
 				23DFC2C2196FEEEB00DA6932 /* Resources */,
 				23DFC2C7196FEEEB00DA6932 /* Vendors */,
 			);
@@ -269,27 +266,6 @@
 				23DFC2BB196FEEEB00DA6932 /* AppDelegate.m */,
 			);
 			path = App;
-			sourceTree = "<group>";
-		};
-		23DFC2BF196FEEEB00DA6932 /* General */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = General;
-			sourceTree = "<group>";
-		};
-		23DFC2C0196FEEEB00DA6932 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Helpers;
-			sourceTree = "<group>";
-		};
-		23DFC2C1196FEEEB00DA6932 /* Macros */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Macros;
 			sourceTree = "<group>";
 		};
 		23DFC2C2196FEEEB00DA6932 /* Resources */ = {
