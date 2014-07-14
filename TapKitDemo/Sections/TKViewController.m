@@ -7,6 +7,8 @@
 //
 
 #import "TKViewController.h"
+#import "NSData+RSA.h"
+#import "NSData+AES.h"
 
 @implementation TKViewController
 
@@ -46,7 +48,7 @@
 
 - (void)doit1:(id)sender
 {
-  NSString *path = TKPathForBundleResource(nil, @"small.jpg");
+  NSString *path = TKPathForBundleResource(nil, @"plain.txt");
   NSData *input = [[NSData alloc] initWithContentsOfFile:path];
   [self privateDecrypt:[self publicEncrypt:input]];
 }
@@ -76,13 +78,14 @@
   NSLog(@"[Encrypt] input: %d", [data length]);
   
   NSDate *date = [NSDate date];
-  NSData *result = [data RSAEncryptWithKey:_privateKey type:1];
+  NSData *result = [data AES256EncryptWithKey:@"01234567890123456789012345678901"];
+  //NSData *result = [data RSAEncryptWithKey:_privateKey type:1];
   //NSData *result = [data RSAEncryptWithKey:_publicKey type:0];
   NSLog(@"[Encrypt] time: %f", [[NSDate date] timeIntervalSinceDate:date]);
   
   NSLog(@"[Encrypt] result:%d", [result length]);
   
-  NSString *path = TKPathForDocumentResource(@"pub_encrypt.jpg");
+  NSString *path = TKPathForDocumentResource(@"pub_encrypt.txt");
   [result writeToFile:path atomically:YES];
   
   
@@ -101,13 +104,14 @@
   NSLog(@"[Decrypt] input: %d", [data length]);
   
   NSDate *date = [NSDate date];
-  NSData *result = [data RSADecryptWithKey:_publicKey type:0];
+  NSData *result = [data AES256DecryptWithKey:@"01234567890123456789012345678901"];
+  //NSData *result = [data RSADecryptWithKey:_publicKey type:0];
   //NSData *result = [data RSADecryptWithKey:_privateKey type:1];
   NSLog(@"[Decrypt] time: %f", [[NSDate date] timeIntervalSinceDate:date]);
   
   NSLog(@"[Decrypt] result: %d", [result length]);
   
-  NSString *path = TKPathForDocumentResource(@"pri_decrypt.jpg");
+  NSString *path = TKPathForDocumentResource(@"pri_decrypt.txt");
   [result writeToFile:path atomically:YES];
   
   

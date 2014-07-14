@@ -9,8 +9,29 @@
 #import "NSData+RSA.h"
 #import <openssl/rsa.h>
 #import <openssl/pem.h>
+#import <openssl/evp.h>
 
 @implementation NSData (RSA)
+
+- (EVP_PKEY *)pkeyWithKey:(NSString *)key
+{
+  EVP_PKEY = NULL;
+  
+  EVP_PKEY *pkey = EVP_PKEY_new();
+  
+  EVP_CIPHER_CTX ctx;
+  
+  
+  BIO *bio = BIO_new_mem_buf((void *)str, strlen(str));
+  if ( type==0 ) {
+    rsa = PEM_read_bio_RSA_PUBKEY(bio, NULL, 0, NULL);
+  } else {
+    rsa = PEM_read_bio_RSAPrivateKey(bio, NULL, 0, NULL);
+  }
+  BIO_free(bio);
+  
+  
+}
 
 - (NSData *)RSAEncryptWithKey:(NSString *)key type:(int)type
 {
