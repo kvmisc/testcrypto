@@ -43,6 +43,8 @@
   
   NSData *pri = [[NSData alloc] initWithContentsOfFile:TKPathForBundleResource(nil, @"private.pem")];
   _privateKey = [[NSString alloc] initWithData:pri encoding:NSUTF8StringEncoding];
+  
+  _iv = [NSData generateInitializationVector];
 }
 
 
@@ -78,7 +80,7 @@
   NSLog(@"[Encrypt] input: %d", [data length]);
   
   NSDate *date = [NSDate date];
-  NSData *result = [data AES256EncryptWithKey:@"01234567890123456789012345678901"];
+  NSData *result = [data AES256EncryptWithKey:@"0123456701234567" iv:_iv];
   //NSData *result = [data RSAEncryptWithKey:_privateKey type:1];
   //NSData *result = [data RSAEncryptWithKey:_publicKey type:0];
   NSLog(@"[Encrypt] time: %f", [[NSDate date] timeIntervalSinceDate:date]);
@@ -104,7 +106,7 @@
   NSLog(@"[Decrypt] input: %d", [data length]);
   
   NSDate *date = [NSDate date];
-  NSData *result = [data AES256DecryptWithKey:@"01234567890123456789012345678901"];
+  NSData *result = [data AES256DecryptWithKey:@"0123456701234567" iv:_iv];
   //NSData *result = [data RSADecryptWithKey:_publicKey type:0];
   //NSData *result = [data RSADecryptWithKey:_privateKey type:1];
   NSLog(@"[Decrypt] time: %f", [[NSDate date] timeIntervalSinceDate:date]);

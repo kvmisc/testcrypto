@@ -11,6 +11,7 @@
 @interface TKViewController : UIViewController {
   NSString *_publicKey;
   NSString *_privateKey;
+  NSData *_iv;
 }
 
 @end
