@@ -9,58 +9,38 @@
 #import "NSData+RSA.h"
 #import <openssl/rsa.h>
 #import <openssl/pem.h>
-#import <openssl/evp.h>
 
 @implementation NSData (RSA)
 
-//- (EVP_PKEY *)pkeyWithKey:(NSString *)key
-//{
-//  EVP_PKEY = NULL;
-//  
-//  EVP_PKEY *pkey = EVP_PKEY_new();
-//  
-//  EVP_CIPHER_CTX ctx;
-//  
-//  
-//  BIO *bio = BIO_new_mem_buf((void *)str, strlen(str));
-//  if ( type==0 ) {
-//    rsa = PEM_read_bio_RSA_PUBKEY(bio, NULL, 0, NULL);
-//  } else {
-//    rsa = PEM_read_bio_RSAPrivateKey(bio, NULL, 0, NULL);
-//  }
-//  BIO_free(bio);
-//  
-//  
-//}
-
 - (NSData *)RSAEncryptWithKey:(NSString *)key type:(int)type
 {
-  NSMutableData *result = [[NSMutableData alloc] init];
+  NSMutableData *result = NULL;
   
   RSA *rsa = [self RSAWithKey:key type:type];
   
   if ( rsa ) {
-    int blk_size = RSA_size(rsa) - 11;
-    int blk_count = ceil([self length] / (CGFloat)blk_size);
+    int bsize = RSA_size(rsa) - 11;
+    int bcount = ceil([self length] / (CGFloat)bsize);
     
-    unsigned char read_buf[1024];
-    unsigned char parse_buf[1024];
+    unsigned char ibuf[1024];
+    unsigned char obuf[1024];
     
-    for ( int i=0; i<blk_count; ++i ) {
-      int loc = i * blk_size;
-      int len = MIN((blk_size), ([self length] - i*blk_size));
-      memset(read_buf, 0, 1024);
-      [self getBytes:read_buf range:NSMakeRange(loc, len)];
+    result = [[NSMutableData alloc] init];
+    
+    for ( int i=0; i<bcount; ++i ) {
+      int loc = i * bsize;
+      int len = MIN((bsize), ([self length] - i*bsize));
+      memset(ibuf, 0, 1024);
+      [self getBytes:ibuf range:NSMakeRange(loc, len)];
       
-      memset(parse_buf, 0, 1024);
-      int parse_count = 0;
+      memset(obuf, 0, 1024);
       if ( type==0 ) {
-        parse_count = RSA_public_encrypt(len, read_buf, parse_buf, rsa, RSA_PKCS1_PADDING);
+        int length = RSA_public_encrypt(len, ibuf, obuf, rsa, RSA_PKCS1_PADDING);
+        [result appendBytes:obuf length:length];
       } else {
-        parse_count = RSA_private_encrypt(len, read_buf, parse_buf, rsa, RSA_PKCS1_PADDING);
+        int length = RSA_private_encrypt(len, ibuf, obuf, rsa, RSA_PKCS1_PADDING);
+        [result appendBytes:obuf length:length];
       }
-      
-      [result appendBytes:parse_buf length:parse_count];
     }
     
   }
@@ -70,31 +50,32 @@
 
 - (NSData *)RSADecryptWithKey:(NSString *)key type:(int)type
 {
-  NSMutableData *result = [[NSMutableData alloc] init];
+  NSMutableData *result = NULL;
   
   RSA *rsa = [self RSAWithKey:key type:type];
   
   if ( rsa ) {
-    int blk_size = RSA_size(rsa);
-    int blk_count = [self length] / blk_size;
+    int bsize = RSA_size(rsa);
+    int bcount = [self length] / bsize;
     
-    if ( ([self length] % blk_size) == 0 ) {
-      unsigned char read_buf[1024];
-      unsigned char parse_buf[1024];
+    if ( ([self length]%bsize)==0 ) {
+      unsigned char ibuf[1024];
+      unsigned char obuf[1024];
       
-      for ( int i=0; i<blk_count; ++i ) {
-        memset(read_buf, 0, 1024);
-        [self getBytes:read_buf range:NSMakeRange((i*blk_size), blk_size)];
+      result = [[NSMutableData alloc] init];
+      
+      for ( int i=0; i<bcount; ++i ) {
+        memset(ibuf, 0, 1024);
+        [self getBytes:ibuf range:NSMakeRange((i*bsize), bsize)];
         
-        memset(parse_buf, 0, 1024);
-        int parse_count = 0;
+        memset(obuf, 0, 1024);
         if ( type==0 ) {
-          parse_count = RSA_public_decrypt(blk_size, read_buf, parse_buf, rsa, RSA_PKCS1_PADDING);
+          int length = RSA_public_decrypt(bsize, ibuf, obuf, rsa, RSA_PKCS1_PADDING);
+          [result appendBytes:obuf length:length];
         } else {
-          parse_count = RSA_private_decrypt(blk_size, read_buf, parse_buf, rsa, RSA_PKCS1_PADDING);
+          int length = RSA_private_decrypt(bsize, ibuf, obuf, rsa, RSA_PKCS1_PADDING);
+          [result appendBytes:obuf length:length];
         }
-        
-        [result appendBytes:parse_buf length:parse_count];
       }
     }
     

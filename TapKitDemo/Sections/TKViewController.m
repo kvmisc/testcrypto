@@ -50,28 +50,43 @@
 
 - (void)doit1:(id)sender
 {
-  NSString *path = TKPathForBundleResource(nil, @"medium.jpg");
+  NSString *path = TKPathForBundleResource(nil, @"plain.txt");
   NSData *input = [[NSData alloc] initWithContentsOfFile:path];
-  [self privateDecrypt:[self publicEncrypt:input]];
+  
+  NSData *encrypt = [self encrypt:input];
+  [encrypt writeToFile:TKPathForDocumentResource(@"1encrypt.dat") atomically:YES];
+  
+  NSData *decrypt = [self decrypt:encrypt];
+  [decrypt writeToFile:TKPathForDocumentResource(@"1decrypt.txt") atomically:YES];
 }
 
 - (void)doit2:(id)sender
 {
-  NSString *path = TKPathForBundleResource(nil, @"medium.jpg");
+  NSString *path = TKPathForBundleResource(nil, @"small.jpg");
   NSData *input = [[NSData alloc] initWithContentsOfFile:path];
-  [self privateDecrypt:[self publicEncrypt:input]];
+  
+  NSData *encrypt = [self encrypt:input];
+  [encrypt writeToFile:TKPathForDocumentResource(@"2encrypt.dat") atomically:YES];
+  
+  NSData *decrypt = [self decrypt:encrypt];
+  [decrypt writeToFile:TKPathForDocumentResource(@"2decrypt.jpg") atomically:YES];
 }
 
 - (void)doit3:(id)sender
 {
   NSString *path = TKPathForBundleResource(nil, @"big.jpg");
   NSData *input = [[NSData alloc] initWithContentsOfFile:path];
-  [self privateDecrypt:[self publicEncrypt:input]];
+  
+  NSData *encrypt = [self encrypt:input];
+  [encrypt writeToFile:TKPathForDocumentResource(@"3encrypt.dat") atomically:YES];
+  
+  NSData *decrypt = [self decrypt:encrypt];
+  [decrypt writeToFile:TKPathForDocumentResource(@"3decrypt.jpg") atomically:YES];
 }
 
 
 
-- (NSData *)publicEncrypt:(NSData *)data
+- (NSData *)encrypt:(NSData *)data
 {
   NSLog(@" ");
   NSLog(@"==============================");
@@ -81,14 +96,11 @@
   
   NSDate *date = [NSDate date];
   NSData *result = [data AES256EncryptWithKey:@"0123456701234567" iv:_iv];
-  //NSData *result = [data RSAEncryptWithKey:_privateKey type:1];
   //NSData *result = [data RSAEncryptWithKey:_publicKey type:0];
+  //NSData *result = [data RSAEncryptWithKey:_privateKey type:1];
   NSLog(@"[Encrypt] time: %f", [[NSDate date] timeIntervalSinceDate:date]);
   
   NSLog(@"[Encrypt] result:%d", [result length]);
-  
-  NSString *path = TKPathForDocumentResource(@"pub_encrypt.jpg");
-  [result writeToFile:path atomically:YES];
   
   
   NSLog(@"==============================");
@@ -97,7 +109,7 @@
   return result;
 }
 
-- (void)privateDecrypt:(NSData *)data
+- (NSData *)decrypt:(NSData *)data
 {
   NSLog(@" ");
   NSLog(@"==============================");
@@ -107,18 +119,17 @@
   
   NSDate *date = [NSDate date];
   NSData *result = [data AES256DecryptWithKey:@"0123456701234567" iv:_iv];
-  //NSData *result = [data RSADecryptWithKey:_publicKey type:0];
   //NSData *result = [data RSADecryptWithKey:_privateKey type:1];
+  //NSData *result = [data RSADecryptWithKey:_publicKey type:0];
   NSLog(@"[Decrypt] time: %f", [[NSDate date] timeIntervalSinceDate:date]);
   
   NSLog(@"[Decrypt] result: %d", [result length]);
   
-  NSString *path = TKPathForDocumentResource(@"pri_decrypt.jpg");
-  [result writeToFile:path atomically:YES];
-  
   
   NSLog(@"==============================");
   NSLog(@" ");
+  
+  return result;
 }
 
 @end
