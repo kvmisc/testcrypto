@@ -7,6 +7,7 @@
 //
 
 #import "TKCommon.h"
+#import "TKCompatibility.h"
 
 #pragma mark - System message
 
@@ -40,25 +41,27 @@ UIImage *TKCreateResizableImage(NSString *name, UIEdgeInsets insets)
 }
 
 
-NSString *TKDeviceSpecificImageName(NSString *name, BOOL screen)
+NSString *TKDeviceSpecificImageName(NSString *name, BOOL screenLevel)
 {
-  if ( [UIScreen mainScreen].scale==2.0 ) {
+  if ( TKIsPhone() && TKIsRetina() ) {
     
-    NSString *extension = [name pathExtension];
+    NSString *type = [name pathExtension];
     NSString *body = [name substringToIndex:[name rangeOfString:@"."].location];
     
     NSMutableString *newName = [[NSMutableString alloc] initWithString:body];
     
-    if ( screen ) {
-      if ( [UIDevice currentDevice].userInterfaceIdiom==UIUserInterfaceIdiomPhone ) {
-        if ( [UIScreen mainScreen].bounds.size.height>480.0 ) {
-          [newName appendString:@"-568h"];
-        }
+    if ( screenLevel ) {
+      CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+      if ( screenHeight==480.0 ) {
+        // ...
+      } else if ( screenHeight==568.0 ) {
+        [newName appendString:@"-568h"];
       }
     }
     
     [newName appendString:@"@2x"];
-    [newName appendFormat:@".%@", extension];
+    
+    [newName appendFormat:@".%@", type];
     
     return newName;
   }
