@@ -29,7 +29,7 @@ UIImage *TKCreateImage(NSString *name);
 UIImage *TKCreateResizableImage(NSString *name, UIEdgeInsets insets);
 
 
-NSString *TKDeviceSpecificImageName(NSString *name, BOOL screen);
+NSString *TKDeviceSpecificImageName(NSString *name, BOOL screenLevel);
 
 
 ///-------------------------------
