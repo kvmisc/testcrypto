@@ -2,10 +2,12 @@
 *.xcodeproj/*
 !*.xcodeproj/project.pbxproj
 
+*.xcworkspace/*
+!*.xcworkspace/contents.xcworkspacedata
+
 
 # CocoaPods
 Pods/
-*.xcworkspace
 
 # Misc
 .DS_Store

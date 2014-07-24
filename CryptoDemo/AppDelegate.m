@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "TKViewController.h"
 
 @implementation AppDelegate
 
@@ -14,6 +15,7 @@
 {
   _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
   
+  _window.rootViewController = [[TKViewController alloc] init];
   
   _window.backgroundColor = [UIColor whiteColor];
   [_window makeKeyAndVisible];

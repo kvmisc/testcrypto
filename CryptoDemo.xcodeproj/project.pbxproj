@@ -17,6 +17,12 @@
 		0A5F49C61981530A00A1DA9A /* NSData+AES.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5F49C11981530A00A1DA9A /* NSData+AES.m */; };
 		0A5F49C71981530A00A1DA9A /* NSData+RSA.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5F49C31981530A00A1DA9A /* NSData+RSA.m */; };
 		0A5F49C81981530A00A1DA9A /* TKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5F49C51981530A00A1DA9A /* TKViewController.m */; };
+		0A5F49CF19815D6000A1DA9A /* big.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0A5F49C919815D6000A1DA9A /* big.jpg */; };
+		0A5F49D019815D6000A1DA9A /* medium.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0A5F49CA19815D6000A1DA9A /* medium.jpg */; };
+		0A5F49D119815D6000A1DA9A /* plain.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0A5F49CB19815D6000A1DA9A /* plain.txt */; };
+		0A5F49D219815D6000A1DA9A /* private.pem in Resources */ = {isa = PBXBuildFile; fileRef = 0A5F49CC19815D6000A1DA9A /* private.pem */; };
+		0A5F49D319815D6000A1DA9A /* public.pem in Resources */ = {isa = PBXBuildFile; fileRef = 0A5F49CD19815D6000A1DA9A /* public.pem */; };
+		0A5F49D419815D6000A1DA9A /* small.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0A5F49CE19815D6000A1DA9A /* small.jpg */; };
 		CBE193136DA34BFB897D9600 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5273FB58F7E4BF698F04DEA /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -113,6 +119,12 @@
 		0A5F49C31981530A00A1DA9A /* NSData+RSA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+RSA.m"; sourceTree = "<group>"; };
 		0A5F49C41981530A00A1DA9A /* TKViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKViewController.h; sourceTree = "<group>"; };
 		0A5F49C51981530A00A1DA9A /* TKViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKViewController.m; sourceTree = "<group>"; };
+		0A5F49C919815D6000A1DA9A /* big.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = big.jpg; sourceTree = "<group>"; };
+		0A5F49CA19815D6000A1DA9A /* medium.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = medium.jpg; sourceTree = "<group>"; };
+		0A5F49CB19815D6000A1DA9A /* plain.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = plain.txt; sourceTree = "<group>"; };
+		0A5F49CC19815D6000A1DA9A /* private.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = private.pem; sourceTree = "<group>"; };
+		0A5F49CD19815D6000A1DA9A /* public.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = public.pem; sourceTree = "<group>"; };
+		0A5F49CE19815D6000A1DA9A /* small.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = small.jpg; sourceTree = "<group>"; };
 		500591B478664A25A5165C03 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		D5273FB58F7E4BF698F04DEA /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -176,6 +188,12 @@
 				0A5F49C21981530A00A1DA9A /* NSData+RSA.h */,
 				0A5F49C31981530A00A1DA9A /* NSData+RSA.m */,
 				0A5F486C1981482A00A1DA9A /* Images.xcassets */,
+				0A5F49C919815D6000A1DA9A /* big.jpg */,
+				0A5F49CA19815D6000A1DA9A /* medium.jpg */,
+				0A5F49CB19815D6000A1DA9A /* plain.txt */,
+				0A5F49CC19815D6000A1DA9A /* private.pem */,
+				0A5F49CD19815D6000A1DA9A /* public.pem */,
+				0A5F49CE19815D6000A1DA9A /* small.jpg */,
 				0A5F493419814F0C00A1DA9A /* Vendors */,
 			);
 			path = CryptoDemo;
@@ -326,7 +344,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A5F49CF19815D6000A1DA9A /* big.jpg in Resources */,
+				0A5F49D219815D6000A1DA9A /* private.pem in Resources */,
 				0A5F486D1981482A00A1DA9A /* Images.xcassets in Resources */,
+				0A5F49D419815D6000A1DA9A /* small.jpg in Resources */,
+				0A5F49D319815D6000A1DA9A /* public.pem in Resources */,
+				0A5F49D019815D6000A1DA9A /* medium.jpg in Resources */,
+				0A5F49D119815D6000A1DA9A /* plain.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
