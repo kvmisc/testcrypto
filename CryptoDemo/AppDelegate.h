@@ -14,6 +14,4 @@
   UIWindow *_window;
 }
 
-@property (nonatomic, strong) UIWindow *window;
-
 @end

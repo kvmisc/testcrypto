@@ -483,16 +483,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CryptoDemo/Prefix.pch;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					$SRCROOT/$PRODUCT_NAME/Vendors,
-				);
+				HEADER_SEARCH_PATHS = $SRCROOT/$PRODUCT_NAME/Vendors;
 				INFOPLIST_FILE = CryptoDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/CryptoDemo/Vendors/openssl",
-				);
+				LIBRARY_SEARCH_PATHS = $SRCROOT/CryptoDemo/Vendors/openssl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -506,16 +500,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CryptoDemo/Prefix.pch;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					$SRCROOT/$PRODUCT_NAME/Vendors,
-				);
+				HEADER_SEARCH_PATHS = $SRCROOT/$PRODUCT_NAME/Vendors;
 				INFOPLIST_FILE = CryptoDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/CryptoDemo/Vendors/openssl",
-				);
+				LIBRARY_SEARCH_PATHS = $SRCROOT/CryptoDemo/Vendors/openssl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
