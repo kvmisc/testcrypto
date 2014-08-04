@@ -6,6 +6,9 @@
 !*.xcworkspace/contents.xcworkspacedata
 
 
+# Lib
+#*.a
+
 # CocoaPods
 Pods/
 
