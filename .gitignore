@@ -7,7 +7,7 @@
 
 
 # Lib
-#*.a
+*.a
 
 # CocoaPods
 Pods/
