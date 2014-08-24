@@ -1,5 +1,5 @@
 PODS:
-  - tapkit (1.0.0)
+  - tapkit (1.0.2)
 
 DEPENDENCIES:
   - tapkit (from `https://github.com/kvmisc/tapkit.git`)
@@ -9,6 +9,6 @@ EXTERNAL SOURCES:
     :git: https://github.com/kvmisc/tapkit.git
 
 SPEC CHECKSUMS:
-  tapkit: 62e3472171e923b970aad32f903d7ec4dfa3f128
+  tapkit: 1f8b277b54c7fa1841799fb7991d480a7aced0f6
 
 COCOAPODS: 0.33.1
