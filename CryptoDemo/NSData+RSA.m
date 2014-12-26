@@ -10,30 +10,18 @@
 #import <openssl/rsa.h>
 #import <openssl/pem.h>
 
-#define MakePublicRSA(rsa, key) \
-const char *ckey = [key UTF8String]; \
-BIO *bio = BIO_new_mem_buf((void *)ckey, strlen(ckey)); \
-rsa = PEM_read_bio_RSA_PUBKEY(bio, NULL, 0, NULL); \
-BIO_free(bio);
-
-#define MakePrivateRSA(rsa, key) \
-const char *ckey = [key UTF8String]; \
-BIO *bio = BIO_new_mem_buf((void *)ckey, strlen(ckey)); \
-rsa = PEM_read_bio_RSAPrivateKey(bio, NULL, 0, NULL); \
-BIO_free(bio);
-
-
 @implementation NSData (RSA)
 
-- (NSData *)RSAEncryptWithPublicKey:(NSString *)key
+- (NSData *)RSAEncryptWithPublicKey:(NSData *)key
 {
-  if ( TKSNonempty(key) ) {
-    NSMutableData *encoded = [[NSMutableData alloc] init];
-    
-    RSA *rsa = NULL;
-    MakePublicRSA(rsa, key);
+  if ( TKDNonempty(key) ) {
+    BIO *bio = BIO_new_mem_buf((void *)[key bytes], [key length]);
+    RSA *rsa = PEM_read_bio_RSA_PUBKEY(bio, NULL, 0, NULL);
+    BIO_free(bio);
     
     if ( rsa ) {
+      NSMutableData *encoded = [[NSMutableData alloc] init];
+      
       int bsize = RSA_size(rsa) - 11;
       int bcount = ceil([self length] / (CGFloat)bsize);
       
@@ -50,22 +38,23 @@ BIO_free(bio);
         int length = RSA_public_encrypt(len, ibuf, obuf, rsa, RSA_PKCS1_PADDING);
         [encoded appendBytes:obuf length:length];
       }
+      
+      return TKDatOrLater(encoded, nil);
     }
-    
-    return TKDatOrLater(encoded, nil);
   }
   return nil;
 }
 
-- (NSData *)RSADecryptWithPrivateKey:(NSString *)key
+- (NSData *)RSADecryptWithPrivateKey:(NSData *)key
 {
-  if ( TKSNonempty(key) ) {
-    NSMutableData *encoded = [[NSMutableData alloc] init];
-    
-    RSA *rsa = NULL;
-    MakePrivateRSA(rsa, key);
+  if ( TKDNonempty(key) ) {
+    BIO *bio = BIO_new_mem_buf((void *)[key bytes], [key length]);
+    RSA *rsa = PEM_read_bio_RSAPrivateKey(bio, NULL, 0, NULL);
+    BIO_free(bio);
     
     if ( rsa ) {
+      NSMutableData *encoded = [[NSMutableData alloc] init];
+      
       int bsize = RSA_size(rsa);
       int bcount = [self length] / bsize;
       
@@ -82,23 +71,24 @@ BIO_free(bio);
           [encoded appendBytes:obuf length:length];
         }
       }
+      
+      return TKDatOrLater(encoded, nil);
     }
-    
-    return TKDatOrLater(encoded, nil);
   }
   return nil;
 }
 
 
-- (NSData *)RSAEncryptWithPrivateKey:(NSString *)key
+- (NSData *)RSAEncryptWithPrivateKey:(NSData *)key
 {
-  if ( TKSNonempty(key) ) {
-    NSMutableData *encoded = [[NSMutableData alloc] init];
-    
-    RSA *rsa = NULL;
-    MakePrivateRSA(rsa, key);
+  if ( TKDNonempty(key) ) {
+    BIO *bio = BIO_new_mem_buf((void *)[key bytes], [key length]);
+    RSA *rsa = PEM_read_bio_RSAPrivateKey(bio, NULL, 0, NULL);
+    BIO_free(bio);
     
     if ( rsa ) {
+      NSMutableData *encoded = [[NSMutableData alloc] init];
+      
       int bsize = RSA_size(rsa) - 11;
       int bcount = ceil([self length] / (CGFloat)bsize);
       
@@ -115,22 +105,23 @@ BIO_free(bio);
         int length = RSA_private_encrypt(len, ibuf, obuf, rsa, RSA_PKCS1_PADDING);
         [encoded appendBytes:obuf length:length];
       }
+      
+      return TKDatOrLater(encoded, nil);
     }
-    
-    return TKDatOrLater(encoded, nil);
   }
   return nil;
 }
 
-- (NSData *)RSADecryptWithPublicKey:(NSString *)key
+- (NSData *)RSADecryptWithPublicKey:(NSData *)key
 {
-  if ( TKSNonempty(key) ) {
-    NSMutableData *encoded = [[NSMutableData alloc] init];
-    
-    RSA *rsa = NULL;
-    MakePublicRSA(rsa, key);
+  if ( TKDNonempty(key) ) {
+    BIO *bio = BIO_new_mem_buf((void *)[key bytes], [key length]);
+    RSA *rsa = PEM_read_bio_RSA_PUBKEY(bio, NULL, 0, NULL);
+    BIO_free(bio);
     
     if ( rsa ) {
+      NSMutableData *encoded = [[NSMutableData alloc] init];
+      
       int bsize = RSA_size(rsa);
       int bcount = [self length] / bsize;
       
@@ -147,9 +138,9 @@ BIO_free(bio);
           [encoded appendBytes:obuf length:length];
         }
       }
+      
+      return TKDatOrLater(encoded, nil);
     }
-    
-    return TKDatOrLater(encoded, nil);
   }
   return nil;
 }

@@ -9,8 +9,17 @@
 #import <UIKit/UIKit.h>
 
 @interface TKViewController : UIViewController {
-  NSString *_privateKey;
-  NSString *_publicKey;
+  NSData *_pri1024;
+  NSData *_pub1024;
+  
+  NSData *_pri2048;
+  NSData *_pub2048;
+  
+  
+  
+  NSData *_origin1;
+  NSData *_origin2;
+  NSData *_origin3;
 }
 
 @end
