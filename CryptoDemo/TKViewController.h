@@ -15,6 +15,8 @@
   NSData *_pri2048;
   NSData *_pub2048;
   
+  NSData *_aesKey;
+  
   
   
   NSData *_origin1;

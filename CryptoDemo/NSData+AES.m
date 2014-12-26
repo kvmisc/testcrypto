@@ -13,98 +13,88 @@
 
 @implementation NSData (AES)
 
-- (NSData *)AES256EncryptWithKey:(NSString *)key iv:(NSData *)iv
+- (NSData *)AES256EncryptWithKey:(NSData *)key
 {
-  NSData *result = nil;
-  
-  if ( [key length]>0 ) {
+  if ( TKDNonempty(key) && ([self length]>0) ) {
     
-    EVP_CIPHER_CTX *ctx = malloc(sizeof(EVP_CIPHER_CTX));
-    if ( ctx ) {
-      EVP_CIPHER_CTX_init(ctx);
+    NSData *encoded = nil;
+    
+    EVP_CIPHER_CTX *cipher = malloc(sizeof(EVP_CIPHER_CTX));
+    if ( cipher ) {
+      EVP_CIPHER_CTX_init(cipher);
       
-      unsigned char *buf = malloc([self length] + AES_BLOCK_SIZE);
-      int length = 0;
-      int tmp = 0;
-      
-      if ( buf ) {
-        EVP_EncryptInit(ctx, EVP_aes_256_cbc(), (unsigned char *)[key UTF8String], [iv bytes]);
+      unsigned char *obuf = malloc([self length] + AES_BLOCK_SIZE);
+      if ( obuf ) {
+        int olen = 0;
         
-        EVP_EncryptUpdate(ctx, buf, &tmp, [self bytes], [self length]);
-        length += tmp;
+        EVP_EncryptInit(cipher, EVP_aes_256_ecb(), [key bytes], NULL);
         
-        EVP_EncryptFinal(ctx, buf+length, &tmp);
-        length += tmp;
+        int tmp = 0;
+        EVP_EncryptUpdate(cipher, obuf, &tmp, [self bytes], [self length]);
+        olen += tmp;
+        EVP_EncryptFinal(cipher, obuf+olen, &tmp);
+        olen += tmp;
         
-        EVP_CIPHER_CTX_cleanup(ctx);
+        EVP_CIPHER_CTX_cleanup(cipher);
         
-        if ( length>0 ) {
-          unsigned char *fixed = malloc(length);
-          if ( fixed ) {
-            memset(fixed, 0, length);
-            memcpy(fixed, buf, length);
-            result = [[NSData alloc] initWithBytesNoCopy:fixed length:length];
+        if ( olen>0 ) {
+          unsigned char *buffer = malloc(olen);
+          if ( buffer ) {
+            memset(buffer, 0, olen);
+            memcpy(buffer, obuf, olen);
+            encoded = [[NSData alloc] initWithBytesNoCopy:buffer length:olen];
           }
         }
-        free(buf);
+        free(obuf);
       }
-      free(ctx);
+      free(cipher);
     }
     
+    return TKDatOrLater(encoded, nil);
   }
-  
-  return result;
+  return nil;
 }
 
-- (NSData *)AES256DecryptWithKey:(NSString *)key iv:(NSData *)iv
+- (NSData *)AES256DecryptWithKey:(NSData *)key
 {
-  NSData *result = nil;
-  
-  if ( [key length]>0 ) {
+  if ( TKDNonempty(key) && ([self length]>0) ) {
     
-    EVP_CIPHER_CTX *ctx = malloc(sizeof(EVP_CIPHER_CTX));
-    if ( ctx ) {
-      EVP_CIPHER_CTX_init(ctx);
+    NSData *encoded = nil;
+    
+    EVP_CIPHER_CTX *cipher = malloc(sizeof(EVP_CIPHER_CTX));
+    if ( cipher ) {
+      EVP_CIPHER_CTX_init(cipher);
       
-      unsigned char *buf = malloc([self length]);
-      int length = 0;
-      int tmp = 0;
-      
-      if ( buf ) {
-        EVP_DecryptInit(ctx, EVP_aes_256_cbc(), (unsigned char *)[key UTF8String], [iv bytes]);
+      unsigned char *obuf = malloc([self length] + AES_BLOCK_SIZE);
+      if ( obuf ) {
+        int olen = 0;
         
-        EVP_DecryptUpdate(ctx, buf, &tmp, [self bytes], [self length]);
-        length += tmp;
+        EVP_DecryptInit(cipher, EVP_aes_256_ecb(), [key bytes], NULL);
         
-        EVP_DecryptFinal(ctx, buf+length, &tmp);
-        length += tmp;
+        int tmp = 0;
+        EVP_DecryptUpdate(cipher, obuf, &tmp, [self bytes], [self length]);
+        olen += tmp;
+        EVP_DecryptFinal(cipher, obuf+olen, &tmp);
+        olen += tmp;
         
-        EVP_CIPHER_CTX_cleanup(ctx);
+        EVP_CIPHER_CTX_cleanup(cipher);
         
-        if ( length>0 ) {
-          unsigned char *fixed = malloc(length);
-          if ( fixed ) {
-            memset(fixed, 0, length);
-            memcpy(fixed, buf, length);
-            result = [[NSData alloc] initWithBytesNoCopy:fixed length:length];
+        if ( olen>0 ) {
+          unsigned char *buffer = malloc(olen);
+          if ( buffer ) {
+            memset(buffer, 0, olen);
+            memcpy(buffer, obuf, olen);
+            encoded = [[NSData alloc] initWithBytesNoCopy:buffer length:olen];
           }
         }
-        free(buf);
+        free(obuf);
       }
-      free(ctx);
+      free(cipher);
     }
     
+    return TKDatOrLater(encoded, nil);
   }
-  
-  return result;
-}
-
-
-+ (NSData *)generateInitializationVector
-{
-  unsigned char *buf = malloc(AES_BLOCK_SIZE);
-  RAND_bytes(buf, AES_BLOCK_SIZE);
-  return [[NSData alloc] initWithBytesNoCopy:buf length:AES_BLOCK_SIZE];
+  return nil;
 }
 
 @end

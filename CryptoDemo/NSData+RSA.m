@@ -14,7 +14,7 @@
 
 - (NSData *)RSAEncryptWithPublicKey:(NSData *)key
 {
-  if ( TKDNonempty(key) ) {
+  if ( TKDNonempty(key) && ([self length]>0) ) {
     BIO *bio = BIO_new_mem_buf((void *)[key bytes], [key length]);
     RSA *rsa = PEM_read_bio_RSA_PUBKEY(bio, NULL, 0, NULL);
     BIO_free(bio);
@@ -47,7 +47,7 @@
 
 - (NSData *)RSADecryptWithPrivateKey:(NSData *)key
 {
-  if ( TKDNonempty(key) ) {
+  if ( TKDNonempty(key) && ([self length]>0) ) {
     BIO *bio = BIO_new_mem_buf((void *)[key bytes], [key length]);
     RSA *rsa = PEM_read_bio_RSAPrivateKey(bio, NULL, 0, NULL);
     BIO_free(bio);
@@ -81,7 +81,7 @@
 
 - (NSData *)RSAEncryptWithPrivateKey:(NSData *)key
 {
-  if ( TKDNonempty(key) ) {
+  if ( TKDNonempty(key) && ([self length]>0) ) {
     BIO *bio = BIO_new_mem_buf((void *)[key bytes], [key length]);
     RSA *rsa = PEM_read_bio_RSAPrivateKey(bio, NULL, 0, NULL);
     BIO_free(bio);
@@ -114,7 +114,7 @@
 
 - (NSData *)RSADecryptWithPublicKey:(NSData *)key
 {
-  if ( TKDNonempty(key) ) {
+  if ( TKDNonempty(key) && ([self length]>0) ) {
     BIO *bio = BIO_new_mem_buf((void *)[key bytes], [key length]);
     RSA *rsa = PEM_read_bio_RSA_PUBKEY(bio, NULL, 0, NULL);
     BIO_free(bio);
