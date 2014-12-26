@@ -1,12 +1,12 @@
 //
-//  NSData+RSA.m
+//  NSDataRSA.m
 //  CryptoDemo
 //
-//  Created by Kevin on 7/11/14.
+//  Created by Kevin Wu on 12/26/14.
 //  Copyright (c) 2014 Tapmob. All rights reserved.
 //
 
-#import "NSData+RSA.h"
+#import "NSDataRSA.h"
 #import <openssl/rsa.h>
 #import <openssl/pem.h>
 

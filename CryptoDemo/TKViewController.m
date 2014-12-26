@@ -7,8 +7,8 @@
 //
 
 #import "TKViewController.h"
-#import "NSData+AES.h"
-#import "NSData+RSA.h"
+#import "NSDataAES.h"
+#import "NSDataRSA.h"
 
 @implementation TKViewController
 
@@ -115,12 +115,12 @@
 //    NSData *data2 = [data1 RSADecryptWithPrivateKey:_pri2048];
 //    [data2 writeToFile:TKPathForDocumentResource(@"27_de_pri_2048.jpg") atomically:YES];
 //  }
-  {
-    NSData *data1 = [_origin2 AES256EncryptWithKey:_aesKey];
-    [data1 writeToFile:TKPathForDocumentResource(@"28_en_aes.dat") atomically:YES];
-    NSData *data2 = [data1 AES256DecryptWithKey:_aesKey];
-    [data2 writeToFile:TKPathForDocumentResource(@"29_de_aes.jpg") atomically:YES];
-  }
+//  {
+//    NSData *data1 = [_origin2 AES256EncryptWithKey:_aesKey];
+//    [data1 writeToFile:TKPathForDocumentResource(@"28_en_aes.dat") atomically:YES];
+//    NSData *data2 = [data1 AES256DecryptWithKey:_aesKey];
+//    [data2 writeToFile:TKPathForDocumentResource(@"29_de_aes.jpg") atomically:YES];
+//  }
 }
 
 - (void)doit3:(id)sender
@@ -149,12 +149,12 @@
 //    NSData *data2 = [data1 RSADecryptWithPrivateKey:_pri2048];
 //    [data2 writeToFile:TKPathForDocumentResource(@"37_de_pri_2048.jpg") atomically:YES];
 //  }
-  {
-    NSData *data1 = [_origin3 AES256EncryptWithKey:_aesKey];
-    [data1 writeToFile:TKPathForDocumentResource(@"38_en_aes.dat") atomically:YES];
-    NSData *data2 = [data1 AES256DecryptWithKey:_aesKey];
-    [data2 writeToFile:TKPathForDocumentResource(@"39_de_aes.jpg") atomically:YES];
-  }
+//  {
+//    NSData *data1 = [_origin3 AES256EncryptWithKey:_aesKey];
+//    [data1 writeToFile:TKPathForDocumentResource(@"38_en_aes.dat") atomically:YES];
+//    NSData *data2 = [data1 AES256DecryptWithKey:_aesKey];
+//    [data2 writeToFile:TKPathForDocumentResource(@"39_de_aes.jpg") atomically:YES];
+//  }
 }
 
 @end
