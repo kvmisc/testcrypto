@@ -38,13 +38,11 @@
   [self.view addSubview:button];
   
   
-  NSData *pub = [[NSData alloc] initWithContentsOfFile:TKPathForBundleResource(nil, @"public.pem")];
-  _publicKey = [[NSString alloc] initWithData:pub encoding:NSUTF8StringEncoding];
-  
-  NSData *pri = [[NSData alloc] initWithContentsOfFile:TKPathForBundleResource(nil, @"private.pem")];
+  NSData *pri = [[NSData alloc] initWithContentsOfFile:TKPathForBundleResource(nil, @"pri2048.key")];
   _privateKey = [[NSString alloc] initWithData:pri encoding:NSUTF8StringEncoding];
   
-  _iv = [NSData generateInitializationVector];
+  NSData *pub = [[NSData alloc] initWithContentsOfFile:TKPathForBundleResource(nil, @"pub2048.key")];
+  _publicKey = [[NSString alloc] initWithData:pub encoding:NSUTF8StringEncoding];
 }
 
 
@@ -52,6 +50,7 @@
 {
   NSString *path = TKPathForBundleResource(nil, @"plain.txt");
   NSData *input = [[NSData alloc] initWithContentsOfFile:path];
+  
   
   NSData *encrypt = [self encrypt:input];
   [encrypt writeToFile:TKPathForDocumentResource(@"1encrypt.dat") atomically:YES];
@@ -65,6 +64,7 @@
   NSString *path = TKPathForBundleResource(nil, @"small.jpg");
   NSData *input = [[NSData alloc] initWithContentsOfFile:path];
   
+  
   NSData *encrypt = [self encrypt:input];
   [encrypt writeToFile:TKPathForDocumentResource(@"2encrypt.dat") atomically:YES];
   
@@ -74,14 +74,34 @@
 
 - (void)doit3:(id)sender
 {
-  NSString *path = TKPathForBundleResource(nil, @"big.jpg");
+  NSString *path = TKPathForBundleResource(nil, @"medium.jpg");
   NSData *input = [[NSData alloc] initWithContentsOfFile:path];
+  
   
   NSData *encrypt = [self encrypt:input];
   [encrypt writeToFile:TKPathForDocumentResource(@"3encrypt.dat") atomically:YES];
   
   NSData *decrypt = [self decrypt:encrypt];
   [decrypt writeToFile:TKPathForDocumentResource(@"3decrypt.jpg") atomically:YES];
+}
+
+
+- (NSData *)doEncrypt:(NSData *)data
+{
+  //NSData *result = [data AES256EncryptWithKey:@"0123456701234567" iv:_iv];
+  
+  //return [data RSAEncryptWithPublicKey:_publicKey];
+  
+  return [data RSAEncryptWithPrivateKey:_privateKey];
+}
+
+- (NSData *)doDecrypt:(NSData *)data
+{
+  //NSData *result = [data AES256DecryptWithKey:@"0123456701234567" iv:_iv];
+  
+  //return [data RSADecryptWithPrivateKey:_privateKey];
+  
+  return [data RSADecryptWithPublicKey:_publicKey];
 }
 
 
@@ -93,13 +113,9 @@
   
   
   NSLog(@"[Encrypt] input: %d", [data length]);
-  
   NSDate *date = [NSDate date];
-  NSData *result = [data AES256EncryptWithKey:@"0123456701234567" iv:_iv];
-  //NSData *result = [data RSAEncryptWithKey:_publicKey type:0];
-  //NSData *result = [data RSAEncryptWithKey:_privateKey type:1];
+  NSData *result = [self doEncrypt:data];
   NSLog(@"[Encrypt] time: %f", [[NSDate date] timeIntervalSinceDate:date]);
-  
   NSLog(@"[Encrypt] result:%d", [result length]);
   
   
@@ -116,13 +132,9 @@
   
   
   NSLog(@"[Decrypt] input: %d", [data length]);
-  
   NSDate *date = [NSDate date];
-  NSData *result = [data AES256DecryptWithKey:@"0123456701234567" iv:_iv];
-  //NSData *result = [data RSADecryptWithKey:_privateKey type:1];
-  //NSData *result = [data RSADecryptWithKey:_publicKey type:0];
+  NSData *result = [self doDecrypt:data];
   NSLog(@"[Decrypt] time: %f", [[NSDate date] timeIntervalSinceDate:date]);
-  
   NSLog(@"[Decrypt] result: %d", [result length]);
   
   

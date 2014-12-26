@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A4CCDFC1A4D325D001FE73B /* pri1024.key in Resources */ = {isa = PBXBuildFile; fileRef = 0A4CCDF81A4D325D001FE73B /* pri1024.key */; };
+		0A4CCDFD1A4D325D001FE73B /* pri2048.key in Resources */ = {isa = PBXBuildFile; fileRef = 0A4CCDF91A4D325D001FE73B /* pri2048.key */; };
+		0A4CCDFE1A4D325D001FE73B /* pub1024.key in Resources */ = {isa = PBXBuildFile; fileRef = 0A4CCDFA1A4D325D001FE73B /* pub1024.key */; };
+		0A4CCDFF1A4D325D001FE73B /* pub2048.key in Resources */ = {isa = PBXBuildFile; fileRef = 0A4CCDFB1A4D325D001FE73B /* pub2048.key */; };
 		0A5F485B1981482A00A1DA9A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A5F485A1981482A00A1DA9A /* Foundation.framework */; };
 		0A5F485F1981482A00A1DA9A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A5F485E1981482A00A1DA9A /* UIKit.framework */; };
 		0A5F48671981482A00A1DA9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5F48661981482A00A1DA9A /* main.m */; };
@@ -20,13 +24,15 @@
 		0A5F49CF19815D6000A1DA9A /* big.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0A5F49C919815D6000A1DA9A /* big.jpg */; };
 		0A5F49D019815D6000A1DA9A /* medium.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0A5F49CA19815D6000A1DA9A /* medium.jpg */; };
 		0A5F49D119815D6000A1DA9A /* plain.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0A5F49CB19815D6000A1DA9A /* plain.txt */; };
-		0A5F49D219815D6000A1DA9A /* private.pem in Resources */ = {isa = PBXBuildFile; fileRef = 0A5F49CC19815D6000A1DA9A /* private.pem */; };
-		0A5F49D319815D6000A1DA9A /* public.pem in Resources */ = {isa = PBXBuildFile; fileRef = 0A5F49CD19815D6000A1DA9A /* public.pem */; };
 		0A5F49D419815D6000A1DA9A /* small.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0A5F49CE19815D6000A1DA9A /* small.jpg */; };
 		CBE193136DA34BFB897D9600 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5273FB58F7E4BF698F04DEA /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A4CCDF81A4D325D001FE73B /* pri1024.key */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pri1024.key; sourceTree = "<group>"; };
+		0A4CCDF91A4D325D001FE73B /* pri2048.key */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pri2048.key; sourceTree = "<group>"; };
+		0A4CCDFA1A4D325D001FE73B /* pub1024.key */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pub1024.key; sourceTree = "<group>"; };
+		0A4CCDFB1A4D325D001FE73B /* pub2048.key */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pub2048.key; sourceTree = "<group>"; };
 		0A5F48571981482A00A1DA9A /* CryptoDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A5F485A1981482A00A1DA9A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0A5F485E1981482A00A1DA9A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -122,10 +128,9 @@
 		0A5F49C919815D6000A1DA9A /* big.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = big.jpg; sourceTree = "<group>"; };
 		0A5F49CA19815D6000A1DA9A /* medium.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = medium.jpg; sourceTree = "<group>"; };
 		0A5F49CB19815D6000A1DA9A /* plain.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = plain.txt; sourceTree = "<group>"; };
-		0A5F49CC19815D6000A1DA9A /* private.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = private.pem; sourceTree = "<group>"; };
-		0A5F49CD19815D6000A1DA9A /* public.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = public.pem; sourceTree = "<group>"; };
 		0A5F49CE19815D6000A1DA9A /* small.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = small.jpg; sourceTree = "<group>"; };
-		500591B478664A25A5165C03 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		27148062A0104A6F6FA4087F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		3CA9F141E0AD43D8260E61FF /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		D5273FB58F7E4BF698F04DEA /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -145,13 +150,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A4CCE001A4D3265001FE73B /* rsa_keys */ = {
+			isa = PBXGroup;
+			children = (
+				0A4CCDF81A4D325D001FE73B /* pri1024.key */,
+				0A4CCDFA1A4D325D001FE73B /* pub1024.key */,
+				0A4CCDF91A4D325D001FE73B /* pri2048.key */,
+				0A4CCDFB1A4D325D001FE73B /* pub2048.key */,
+			);
+			name = rsa_keys;
+			sourceTree = "<group>";
+		};
+		0A4CCE011A4D3275001FE73B /* data */ = {
+			isa = PBXGroup;
+			children = (
+				0A5F49CB19815D6000A1DA9A /* plain.txt */,
+				0A5F49CE19815D6000A1DA9A /* small.jpg */,
+				0A5F49CA19815D6000A1DA9A /* medium.jpg */,
+				0A5F49C919815D6000A1DA9A /* big.jpg */,
+			);
+			name = data;
+			sourceTree = "<group>";
+		};
 		0A5F484E1981482A00A1DA9A = {
 			isa = PBXGroup;
 			children = (
 				0A5F48601981482A00A1DA9A /* CryptoDemo */,
 				0A5F48591981482A00A1DA9A /* Frameworks */,
 				0A5F48581981482A00A1DA9A /* Products */,
-				500591B478664A25A5165C03 /* Pods.xcconfig */,
+				C1E20967293FDFB773D2D911 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -188,12 +215,8 @@
 				0A5F49C21981530A00A1DA9A /* NSData+RSA.h */,
 				0A5F49C31981530A00A1DA9A /* NSData+RSA.m */,
 				0A5F486C1981482A00A1DA9A /* Images.xcassets */,
-				0A5F49C919815D6000A1DA9A /* big.jpg */,
-				0A5F49CA19815D6000A1DA9A /* medium.jpg */,
-				0A5F49CB19815D6000A1DA9A /* plain.txt */,
-				0A5F49CC19815D6000A1DA9A /* private.pem */,
-				0A5F49CD19815D6000A1DA9A /* public.pem */,
-				0A5F49CE19815D6000A1DA9A /* small.jpg */,
+				0A4CCE001A4D3265001FE73B /* rsa_keys */,
+				0A4CCE011A4D3275001FE73B /* data */,
 				0A5F493419814F0C00A1DA9A /* Vendors */,
 			);
 			path = CryptoDemo;
@@ -291,6 +314,15 @@
 			path = openssl;
 			sourceTree = "<group>";
 		};
+		C1E20967293FDFB773D2D911 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				27148062A0104A6F6FA4087F /* Pods.debug.xcconfig */,
+				3CA9F141E0AD43D8260E61FF /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -345,12 +377,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A5F49CF19815D6000A1DA9A /* big.jpg in Resources */,
-				0A5F49D219815D6000A1DA9A /* private.pem in Resources */,
 				0A5F486D1981482A00A1DA9A /* Images.xcassets in Resources */,
+				0A4CCDFF1A4D325D001FE73B /* pub2048.key in Resources */,
 				0A5F49D419815D6000A1DA9A /* small.jpg in Resources */,
-				0A5F49D319815D6000A1DA9A /* public.pem in Resources */,
+				0A4CCDFC1A4D325D001FE73B /* pri1024.key in Resources */,
+				0A4CCDFE1A4D325D001FE73B /* pub1024.key in Resources */,
 				0A5F49D019815D6000A1DA9A /* medium.jpg in Resources */,
 				0A5F49D119815D6000A1DA9A /* plain.txt in Resources */,
+				0A4CCDFD1A4D325D001FE73B /* pri2048.key in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,7 +403,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CDF9BD98A3144D7DBEE973A6 /* Check Pods Manifest.lock */ = {
@@ -477,7 +511,7 @@
 		};
 		0A5F48841981482A00A1DA9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 500591B478664A25A5165C03 /* Pods.xcconfig */;
+			baseConfigurationReference = 27148062A0104A6F6FA4087F /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -497,7 +531,7 @@
 		};
 		0A5F48851981482A00A1DA9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 500591B478664A25A5165C03 /* Pods.xcconfig */;
+			baseConfigurationReference = 3CA9F141E0AD43D8260E61FF /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;

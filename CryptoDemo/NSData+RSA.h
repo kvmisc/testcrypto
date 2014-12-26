@@ -10,8 +10,10 @@
 
 @interface NSData (RSA)
 
-- (NSData *)RSAEncryptWithKey:(NSString *)key type:(int)type;
+- (NSData *)RSAEncryptWithPublicKey:(NSString *)key;
+- (NSData *)RSADecryptWithPrivateKey:(NSString *)key;
 
-- (NSData *)RSADecryptWithKey:(NSString *)key type:(int)type;
+- (NSData *)RSAEncryptWithPrivateKey:(NSString *)key;
+- (NSData *)RSADecryptWithPublicKey:(NSString *)key;
 
 @end
