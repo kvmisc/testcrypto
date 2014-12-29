@@ -18,32 +18,65 @@
     BIO *bio = BIO_new_mem_buf((void *)[key bytes], [key length]);
     RSA *rsa = PEM_read_bio_RSA_PUBKEY(bio, NULL, 0, NULL);
     BIO_free(bio);
-    
+
     if ( rsa ) {
       NSMutableData *encoded = [[NSMutableData alloc] init];
-      
+
       int bsize = RSA_size(rsa) - 11;
       int bcount = ceil([self length] / (CGFloat)bsize);
-      
+
       unsigned char ibuf[1024];
       unsigned char obuf[1024];
-      
+
       for ( int i=0; i<bcount; ++i ) {
         int loc = i * bsize;
         int len = MIN((bsize), ([self length] - i*bsize));
         memset(ibuf, 0, 1024);
         [self getBytes:ibuf range:NSMakeRange(loc, len)];
-        
+
         memset(obuf, 0, 1024);
         int length = RSA_public_encrypt(len, ibuf, obuf, rsa, RSA_PKCS1_PADDING);
         [encoded appendBytes:obuf length:length];
       }
-      
+
       return TKDatOrLater(encoded, nil);
     }
   }
   return nil;
 }
+
+//- (NSData *)RSAEncryptWithPublicKey:(NSData *)key
+//{
+//  if ( TKDNonempty(key) && ([self length]>0) ) {
+//    BIO *bio = BIO_new_mem_buf((void *)[key bytes], [key length]);
+//    RSA *rsa = PEM_read_bio_RSA_PUBKEY(bio, NULL, 0, NULL);
+//    BIO_free(bio);
+//    
+//    if ( rsa ) {
+//      NSMutableData *encoded = [[NSMutableData alloc] init];
+//      
+//      int bsize = RSA_size(rsa) - 11;
+//      int bcount = ceil([self length] / (CGFloat)bsize);
+//      
+//      unsigned char ibuf[1024];
+//      unsigned char obuf[1024];
+//      
+//      for ( int i=0; i<bcount; ++i ) {
+//        int loc = i * bsize;
+//        int len = MIN((bsize), ([self length] - i*bsize));
+//        memset(ibuf, 0, 1024);
+//        [self getBytes:ibuf range:NSMakeRange(loc, len)];
+//        
+//        memset(obuf, 0, 1024);
+//        int length = RSA_public_encrypt(len, ibuf, obuf, rsa, RSA_PKCS1_PADDING);
+//        [encoded appendBytes:obuf length:length];
+//      }
+//      
+//      return TKDatOrLater(encoded, nil);
+//    }
+//  }
+//  return nil;
+//}
 
 - (NSData *)RSADecryptWithPrivateKey:(NSData *)key
 {

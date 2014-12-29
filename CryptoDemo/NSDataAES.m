@@ -7,10 +7,55 @@
 //
 
 #import "NSDataAES.h"
+#import <CommonCrypto/CommonCrypto.h>
+
+
 #import <openssl/aes.h>
 #import <openssl/evp.h>
 
 @implementation NSData (AES)
+
+- (NSData *)AES256EncryptedDataWithKey:(NSData *)key iv:(NSData *)iv
+{
+  CCCryptorStatus status = kCCSuccess;
+
+  CCCryptorRef cryptorRef = NULL;
+  status = CCCryptorCreate(kCCEncrypt,
+                           kCCAlgorithmAES,
+                           kCCOptionPKCS7Padding,
+                           [key bytes],
+                           [key length],
+                           [iv bytes],
+                           &cryptorRef);
+
+  if ( status==kCCSuccess ) {
+
+    size_t bufferSize = CCCryptorGetOutputLength(cryptorRef, [self length], true);
+    void *buffer = malloc(bufferSize);
+    size_t writtenLength = 0;
+
+    status = CCCryptorUpdate(cryptorRef,
+                             [self bytes],
+                             [self length],
+                             buffer,
+                             bufferSize,
+                             &writtenLength);
+
+    status = CCCryptorFinal(cryptorRef,
+                            buffer+writtenLength,
+                            bufferSize-writtenLength,
+                            &writtenLength);
+
+    CCCryptorRelease(cryptorRef);
+  }
+
+  return nil;
+}
+
+- (NSData *)AES256DecryptWithKey:(NSData *)key iv:(NSData *)iv
+{
+  return nil;
+}
 
 //- (NSData *)encrypt:(NSData *)aaa
 //{
