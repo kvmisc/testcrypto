@@ -19,6 +19,9 @@
     # 私钥解密
     openssl rsautl -decrypt  -inkey rsa1024.pub  -in en_pri_1024  -out de_pub_1024
 
+http://blog.iamzsx.me/show.html?id=155002
+
+
 openssl req -x509 -out public.der -outform der -new -newkey rsa:1024 -keyout private.pem -days 3650
 
 openssl x509 -inform DER -in public.der -out private.cer
