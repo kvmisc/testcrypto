@@ -1,7 +1,13 @@
 PODS:
+  - CocoaLumberjack (1.9.2):
+    - CocoaLumberjack/Extensions (= 1.9.2)
+  - CocoaLumberjack/Core (1.9.2)
+  - CocoaLumberjack/Extensions (1.9.2):
+    - CocoaLumberjack/Core
   - tapkit (1.0.10)
 
 DEPENDENCIES:
+  - CocoaLumberjack (~> 1.9.0)
   - tapkit (from `https://github.com/kvmisc/tapkit.git`)
 
 EXTERNAL SOURCES:
@@ -14,6 +20,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/kvmisc/tapkit.git
 
 SPEC CHECKSUMS:
+  CocoaLumberjack: 205769c032b5fef85b92472046bcc8b7e7c8a817
   tapkit: e5befa518e7558337311c2cfcc1cfdb57b4638a7
 
 COCOAPODS: 0.35.0

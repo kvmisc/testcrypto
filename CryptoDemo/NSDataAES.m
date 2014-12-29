@@ -9,196 +9,91 @@
 #import "NSDataAES.h"
 #import <CommonCrypto/CommonCrypto.h>
 
-
-#import <openssl/aes.h>
-#import <openssl/evp.h>
-
 @implementation NSData (AES)
 
-- (NSData *)AES256EncryptedDataWithKey:(NSData *)key iv:(NSData *)iv
+- (NSData *)AESEncryptedDataWithKey:(NSData *)key iv:(NSData *)iv
 {
-  CCCryptorStatus status = kCCSuccess;
+  return [self cryptWithOperation:kCCEncrypt key:key iv:iv];
+}
 
+- (NSData *)AESDecryptedDataWithKey:(NSData *)key iv:(NSData *)iv
+{
+  return [self cryptWithOperation:kCCDecrypt key:key iv:iv];
+}
+
+
+- (NSData *)AESGenerateKeyBySize:(NSUInteger)size
+{
+  if ( (size==kCCKeySizeAES128) || (size==kCCKeySizeAES192) || (size==kCCKeySizeAES256) ) {
+    NSMutableData *data = [[NSMutableData alloc] initWithLength:size];
+    SecRandomCopyBytes(kSecRandomDefault, size, [data mutableBytes]);
+    return data;
+  }
+  return nil;
+}
+
+- (NSData *)AESGenerateIV
+{
+  NSMutableData *data = [[NSMutableData alloc] initWithLength:kCCBlockSizeAES128];
+  SecRandomCopyBytes(kSecRandomDefault, kCCBlockSizeAES128, [data mutableBytes]);
+  return data;
+}
+
+
+- (NSData *)cryptWithOperation:(CCOperation)operation key:(NSData *)key iv:(NSData *)iv
+{
+  if ( [self length]<=0 ) {
+    DDLogDebug(@"[aes] data is empty");
+    return nil;
+  }
+  if ( ([key length]!=kCCKeySizeAES128) && ([key length]!=kCCKeySizeAES192) && ([key length]!=kCCKeySizeAES256) ) {
+    DDLogDebug(@"[aes] key size invalid");
+    return nil;
+  }
+  if ( [iv length]!=kCCBlockSizeAES128 ) {
+    DDLogDebug(@"[aes] initialization vector is empty");
+    return nil;
+  }
+  
+  NSData *result = nil;
+  
+  
+  CCCryptorStatus status = kCCSuccess;
+  
   CCCryptorRef cryptorRef = NULL;
-  status = CCCryptorCreate(kCCEncrypt,
+  status = CCCryptorCreate(operation,
                            kCCAlgorithmAES,
                            kCCOptionPKCS7Padding,
                            [key bytes],
                            [key length],
                            [iv bytes],
                            &cryptorRef);
-
+  
   if ( status==kCCSuccess ) {
-
     size_t bufferSize = CCCryptorGetOutputLength(cryptorRef, [self length], true);
     void *buffer = malloc(bufferSize);
-    size_t writtenLength = 0;
-
-    status = CCCryptorUpdate(cryptorRef,
-                             [self bytes],
-                             [self length],
-                             buffer,
-                             bufferSize,
-                             &writtenLength);
-
-    status = CCCryptorFinal(cryptorRef,
-                            buffer+writtenLength,
-                            bufferSize-writtenLength,
-                            &writtenLength);
-
+    if ( buffer ) {
+      NSUInteger totalLength = 0;
+      size_t writtenLength = 0;
+      status = CCCryptorUpdate(cryptorRef,
+                               [self bytes],
+                               [self length],
+                               buffer,
+                               bufferSize,
+                               &writtenLength);
+      totalLength += writtenLength;
+      status = CCCryptorFinal(cryptorRef,
+                              buffer+writtenLength,
+                              bufferSize-writtenLength,
+                              &writtenLength);
+      totalLength += writtenLength;
+      result = [[NSData alloc] initWithBytesNoCopy:buffer length:totalLength];
+    }
+    
     CCCryptorRelease(cryptorRef);
   }
-
-  return nil;
-}
-
-- (NSData *)AES256DecryptWithKey:(NSData *)key iv:(NSData *)iv
-{
-  return nil;
-}
-
-//- (NSData *)encrypt:(NSData *)aaa
-//{
-//  
-//  
-//  // AES_BLOCK_SIZE = 16
-//  unsigned char key[AES_BLOCK_SIZE];
-//  // Generate AES 128-bit key
-//  for ( int i=0; i<16; ++i) {
-//    key[i] = 32 + i;
-//  }
-//  
-//  unsigned char* input_string;
-//  unsigned char* encrypt_string;
-//  unsigned char* decrypt_string;
-//  unsigned int len;        // encrypt length (in multiple of AES_BLOCK_SIZE)
-//  unsigned int i;
-//  
-//  unsigned char *param = NULL;
-//  
-//  // set the encryption length
-//  len = 0;
-//  if ((strlen(param) + 1) % AES_BLOCK_SIZE == 0) {
-//    len = strlen(param) + 1;
-//  } else {
-//    len = ((strlen(param) + 1) / AES_BLOCK_SIZE + 1) * AES_BLOCK_SIZE;
-//  }
-//  
-//  // set the input string
-//  input_string = (unsigned char*)calloc(len, sizeof(unsigned char));
-//  
-//  strncpy((char*)input_string, param, strlen(param));
-//  
-//
-//  AES_KEY aes;
-//  
-//  
-//  AES_set_encrypt_key(key, 128, &aes);
-//  encrypt_string = (unsigned char*)calloc(len, sizeof(unsigned char));
-//  AES_ecb_encrypt(input_string, encrypt_string, &aes, AES_ENCRYPT);
-//  
-//  
-//  decrypt_string = (unsigned char*)calloc(len, sizeof(unsigned char));
-//  AES_set_decrypt_key(key, 128, &aes);
-//  AES_ecb_encrypt(encrypt_string, decrypt_string, &aes, AES_DECRYPT);
-//  
-//  
-//  
-//  // print
-//  printf("input_string = %s\n", input_string);
-//  printf("encrypted string = ");
-//  for (i=0; i<len; ++i) {
-//    printf("%x%x", (encrypt_string[i] >> 4) & 0xf,
-//           encrypt_string[i] & 0xf);
-//  }
-//  printf("\n");
-//  printf("decrypted string = %s\n", decrypt_string);
-//  return nil;
-//}
-
-
-- (NSData *)AES256EncryptWithKey:(NSData *)key
-{
-  if ( TKDNonempty(key) && ([self length]>0) ) {
-    
-    NSData *encoded = nil;
-    
-    EVP_CIPHER_CTX *cipher = malloc(sizeof(EVP_CIPHER_CTX));
-    if ( cipher ) {
-      EVP_CIPHER_CTX_init(cipher);
-      
-      unsigned char *obuf = malloc([self length] + AES_BLOCK_SIZE);
-      if ( obuf ) {
-        int olen = 0;
-        
-        EVP_EncryptInit(cipher, EVP_aes_256_ecb(), [key bytes], NULL);
-        
-        int tmp = 0;
-        EVP_EncryptUpdate(cipher, obuf, &tmp, [self bytes], [self length]);
-        olen += tmp;
-        EVP_EncryptFinal(cipher, obuf+olen, &tmp);
-        olen += tmp;
-        
-        EVP_CIPHER_CTX_cleanup(cipher);
-        
-        if ( olen>0 ) {
-          unsigned char *buffer = malloc(olen);
-          if ( buffer ) {
-            memset(buffer, 0, olen);
-            memcpy(buffer, obuf, olen);
-            encoded = [[NSData alloc] initWithBytesNoCopy:buffer length:olen];
-          }
-        }
-        free(obuf);
-      }
-      free(cipher);
-    }
-    
-    return TKDatOrLater(encoded, nil);
-  }
-  return nil;
-}
-
-- (NSData *)AES256DecryptWithKey:(NSData *)key
-{
-  if ( TKDNonempty(key) && ([self length]>0) ) {
-    
-    NSData *encoded = nil;
-    
-    EVP_CIPHER_CTX *cipher = malloc(sizeof(EVP_CIPHER_CTX));
-    if ( cipher ) {
-      EVP_CIPHER_CTX_init(cipher);
-      
-      unsigned char *obuf = malloc([self length] + AES_BLOCK_SIZE);
-      if ( obuf ) {
-        int olen = 0;
-        
-        EVP_DecryptInit(cipher, EVP_aes_256_ecb(), [key bytes], NULL);
-        
-        int tmp = 0;
-        EVP_DecryptUpdate(cipher, obuf, &tmp, [self bytes], [self length]);
-        olen += tmp;
-        EVP_DecryptFinal(cipher, obuf+olen, &tmp);
-        olen += tmp;
-        
-        EVP_CIPHER_CTX_cleanup(cipher);
-        
-        if ( olen>0 ) {
-          unsigned char *buffer = malloc(olen);
-          if ( buffer ) {
-            memset(buffer, 0, olen);
-            memcpy(buffer, obuf, olen);
-            encoded = [[NSData alloc] initWithBytesNoCopy:buffer length:olen];
-          }
-        }
-        free(obuf);
-      }
-      free(cipher);
-    }
-    
-    return TKDatOrLater(encoded, nil);
-  }
-  return nil;
+  
+  return result;
 }
 
 @end

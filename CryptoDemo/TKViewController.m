@@ -57,70 +57,27 @@
 
 - (void)doit1:(id)sender
 {
-  {
-    NSData *data1 = [_origin1 RSAEncryptWithPrivateKey:_pri1024];
-    [data1 writeToFile:TKPathForDocumentResource(@"10_en_pri_1024.dat") atomically:YES];
-    NSData *data2 = [data1 RSADecryptWithPublicKey:_pub1024];
-    [data2 writeToFile:TKPathForDocumentResource(@"11_de_pub_1024.txt") atomically:YES];
-  }
-  {
-    NSData *data1 = [_origin1 RSAEncryptWithPublicKey:_pub1024];
-    [data1 writeToFile:TKPathForDocumentResource(@"12_en_pub_1024.dat") atomically:YES];
-    NSData *data2 = [data1 RSADecryptWithPrivateKey:_pri1024];
-    [data2 writeToFile:TKPathForDocumentResource(@"13_de_pri_1024.txt") atomically:YES];
-  }
-  {
-    NSData *data1 = [_origin1 RSAEncryptWithPrivateKey:_pri2048];
-    [data1 writeToFile:TKPathForDocumentResource(@"14_en_pri_2048.dat") atomically:YES];
-    NSData *data2 = [data1 RSADecryptWithPublicKey:_pub2048];
-    [data2 writeToFile:TKPathForDocumentResource(@"15_de_pub_2048.txt") atomically:YES];
-  }
-  {
-    NSData *data1 = [_origin1 RSAEncryptWithPublicKey:_pub2048];
-    [data1 writeToFile:TKPathForDocumentResource(@"16_en_pub_2048.dat") atomically:YES];
-    NSData *data2 = [data1 RSADecryptWithPrivateKey:_pri2048];
-    [data2 writeToFile:TKPathForDocumentResource(@"17_de_pri_2048.txt") atomically:YES];
-  }
-//  {
-//    NSData *data1 = [_origin1 AES256EncryptWithKey:_aesKey];
-//    [data1 writeToFile:TKPathForDocumentResource(@"18_en_aes.dat") atomically:YES];
-//    NSData *data2 = [data1 AES256DecryptWithKey:_aesKey];
-//    [data2 writeToFile:TKPathForDocumentResource(@"19_de_aes.txt") atomically:YES];
-//  }
+  NSString *keyPath = TKPathForBundleResource(nil, @"public.der");
+  NSData *keyData = [[NSData alloc] initWithContentsOfFile:keyPath];
+  
+  SecKeyRef keyRef = [NSData RSAPublicKeyFromDERData:keyData];
+  
+  NSData *data = [[NSData alloc] initWithBytes:"abcd" length:4];
+  NSData *result = [data RSAEncryptedDataWithPublicKey:keyRef];
+  [result writeToFile:TKPathForDocumentResource(@"1encrypt.dat") atomically:YES];
 }
 
 - (void)doit2:(id)sender
 {
-//  {
-//    NSData *data1 = [_origin2 RSAEncryptWithPrivateKey:_pri1024];
-//    [data1 writeToFile:TKPathForDocumentResource(@"20_en_pri_1024.dat") atomically:YES];
-//    NSData *data2 = [data1 RSADecryptWithPublicKey:_pub1024];
-//    [data2 writeToFile:TKPathForDocumentResource(@"21_de_pub_1024.jpg") atomically:YES];
-//  }
-//  {
-//    NSData *data1 = [_origin2 RSAEncryptWithPublicKey:_pub1024];
-//    [data1 writeToFile:TKPathForDocumentResource(@"22_en_pub_1024.dat") atomically:YES];
-//    NSData *data2 = [data1 RSADecryptWithPrivateKey:_pri1024];
-//    [data2 writeToFile:TKPathForDocumentResource(@"23_de_pri_1024.jpg") atomically:YES];
-//  }
-//  {
-//    NSData *data1 = [_origin2 RSAEncryptWithPrivateKey:_pri2048];
-//    [data1 writeToFile:TKPathForDocumentResource(@"24_en_pri_2048.dat") atomically:YES];
-//    NSData *data2 = [data1 RSADecryptWithPublicKey:_pub2048];
-//    [data2 writeToFile:TKPathForDocumentResource(@"25_de_pub_2048.jpg") atomically:YES];
-//  }
-//  {
-//    NSData *data1 = [_origin2 RSAEncryptWithPublicKey:_pub2048];
-//    [data1 writeToFile:TKPathForDocumentResource(@"26_en_pub_2048.dat") atomically:YES];
-//    NSData *data2 = [data1 RSADecryptWithPrivateKey:_pri2048];
-//    [data2 writeToFile:TKPathForDocumentResource(@"27_de_pri_2048.jpg") atomically:YES];
-//  }
-//  {
-//    NSData *data1 = [_origin2 AES256EncryptWithKey:_aesKey];
-//    [data1 writeToFile:TKPathForDocumentResource(@"28_en_aes.dat") atomically:YES];
-//    NSData *data2 = [data1 AES256DecryptWithKey:_aesKey];
-//    [data2 writeToFile:TKPathForDocumentResource(@"29_de_aes.jpg") atomically:YES];
-//  }
+  NSString *keyPath = TKPathForBundleResource(nil, @"private.pfx");
+  NSData *keyData = [[NSData alloc] initWithContentsOfFile:keyPath];
+  
+  SecKeyRef keyRef = [NSData RSAPrivateKeyFromPFXData:keyData password:@"987654"];
+  
+  NSString *path = TKPathForDocumentResource(@"1encrypt.dat");
+  NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+  NSData *result = [data RSADecryptedDataWithPrivateKey:keyRef];
+  [result writeToFile:TKPathForDocumentResource(@"2decrypt.dat") atomically:YES];
 }
 
 - (void)doit3:(id)sender

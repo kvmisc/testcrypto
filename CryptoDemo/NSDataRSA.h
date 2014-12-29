@@ -10,10 +10,19 @@
 
 @interface NSData (RSA)
 
-- (NSData *)RSAEncryptWithPublicKey:(NSData *)key;
-- (NSData *)RSADecryptWithPrivateKey:(NSData *)key;
+- (NSData *)RSAEncryptedDataWithPublicKey:(SecKeyRef)keyRef;
 
-- (NSData *)RSAEncryptWithPrivateKey:(NSData *)key;
-- (NSData *)RSADecryptWithPublicKey:(NSData *)key;
+- (NSData *)RSADecryptedDataWithPrivateKey:(SecKeyRef)keyRef;
+
+
++ (SecKeyRef)RSAPublicKeyFromDERData:(NSData *)data;
+
++ (SecKeyRef)RSAPrivateKeyFromPFXData:(NSData *)data password:(NSString *)password;
+
+//- (NSData *)RSAEncryptedDataWithPublicKey:(NSData *)key;
+//- (NSData *)RSADecryptedDataWithPrivateKey:(NSData *)key;
+//
+//- (NSData *)RSAEncryptedDataWithPrivateKey:(NSData *)key;
+//- (NSData *)RSADecryptedDataWithPublicKey:(NSData *)key;
 
 @end

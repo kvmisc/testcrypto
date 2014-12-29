@@ -10,14 +10,13 @@
 
 @interface NSData (AES)
 
-- (NSData *)AES256EncryptWithKey:(NSData *)key iv:(NSData *)iv;
+- (NSData *)AESEncryptedDataWithKey:(NSData *)key iv:(NSData *)iv;
 
-- (NSData *)AES256DecryptWithKey:(NSData *)key iv:(NSData *)iv;
+- (NSData *)AESDecryptedDataWithKey:(NSData *)key iv:(NSData *)iv;
 
 
+- (NSData *)AESGenerateKeyBySize:(NSUInteger)size;
 
-- (NSData *)AES256EncryptWithKey:(NSData *)key;
-
-- (NSData *)AES256DecryptWithKey:(NSData *)key;
+- (NSData *)AESGenerateIV;
 
 @end
