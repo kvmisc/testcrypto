@@ -7,22 +7,24 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <openssl/rsa.h>
+#import <openssl/pem.h>
 
 @interface NSData (RSA)
 
-- (NSData *)RSAEncryptedDataWithPublicKey:(SecKeyRef)keyRef;
+- (NSData *)RSAEncryptedDataWithPublicKey:(RSA *)rsa;
 
-- (NSData *)RSADecryptedDataWithPrivateKey:(SecKeyRef)keyRef;
+- (NSData *)RSADecryptedDataWithPrivateKey:(RSA *)rsa;
 
 
-+ (SecKeyRef)RSAPublicKeyFromDERData:(NSData *)data;
+- (NSData *)RSAEncryptedDataWithPrivateKey:(RSA *)rsa;
 
-+ (SecKeyRef)RSAPrivateKeyFromPFXData:(NSData *)data password:(NSString *)password;
+- (NSData *)RSADecryptedDataWithPublicKey:(RSA *)rsa;
 
-//- (NSData *)RSAEncryptedDataWithPublicKey:(NSData *)key;
-//- (NSData *)RSADecryptedDataWithPrivateKey:(NSData *)key;
-//
-//- (NSData *)RSAEncryptedDataWithPrivateKey:(NSData *)key;
-//- (NSData *)RSADecryptedDataWithPublicKey:(NSData *)key;
+
+
++ (RSA *)RSAPublicKey:(NSData *)key;
+
++ (RSA *)RSAPrivateKey:(NSData *)key;
 
 @end

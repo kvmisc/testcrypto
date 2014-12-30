@@ -15,8 +15,14 @@
 - (NSData *)AESDecryptedDataWithKey:(NSData *)key iv:(NSData *)iv;
 
 
-- (NSData *)AESGenerateKeyBySize:(NSUInteger)size;
 
-- (NSData *)AESGenerateIV;
++ (NSData *)AES128GenerateKey;
+
++ (NSData *)AES192GenerateKey;
+
++ (NSData *)AES256GenerateKey;
+
+
++ (NSData *)AESGenerateIV;
 
 @end
