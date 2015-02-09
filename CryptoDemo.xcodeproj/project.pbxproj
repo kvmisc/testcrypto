@@ -20,6 +20,8 @@
 		0A5F49CF19815D6000A1DA9A /* big.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0A5F49C919815D6000A1DA9A /* big.jpg */; };
 		0A5F49D119815D6000A1DA9A /* plain.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0A5F49CB19815D6000A1DA9A /* plain.txt */; };
 		0A5F49D419815D6000A1DA9A /* small.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0A5F49CE19815D6000A1DA9A /* small.jpg */; };
+		0A6E96D51A889BFF0042CE88 /* NSDataCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A6E96D41A889BFF0042CE88 /* NSDataCrypto.m */; };
+		0A6E96D81A889DBA0042CE88 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A6E96D71A889DBA0042CE88 /* ViewController.m */; };
 		0A8C844B1A52466400EC8CC6 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A8C84211A52466400EC8CC6 /* libcrypto.a */; };
 		0A8C844C1A52466400EC8CC6 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A8C84221A52466400EC8CC6 /* libssl.a */; };
 		233CD20F1A4D8BCC0012D6D7 /* NSDataRSA.m in Sources */ = {isa = PBXBuildFile; fileRef = 233CD20E1A4D8BCC0012D6D7 /* NSDataRSA.m */; };
@@ -46,6 +48,10 @@
 		0A5F49C919815D6000A1DA9A /* big.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = big.jpg; sourceTree = "<group>"; };
 		0A5F49CB19815D6000A1DA9A /* plain.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = plain.txt; sourceTree = "<group>"; };
 		0A5F49CE19815D6000A1DA9A /* small.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = small.jpg; sourceTree = "<group>"; };
+		0A6E96D31A889BFF0042CE88 /* NSDataCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDataCrypto.h; sourceTree = "<group>"; };
+		0A6E96D41A889BFF0042CE88 /* NSDataCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDataCrypto.m; sourceTree = "<group>"; };
+		0A6E96D61A889DBA0042CE88 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		0A6E96D71A889DBA0042CE88 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		0A8C83FE1A52466400EC8CC6 /* aes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aes.h; sourceTree = "<group>"; };
 		0A8C83FF1A52466400EC8CC6 /* asn1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asn1.h; sourceTree = "<group>"; };
 		0A8C84001A52466400EC8CC6 /* asn1_mac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asn1_mac.h; sourceTree = "<group>"; };
@@ -207,6 +213,8 @@
 				0A5F486A1981482A00A1DA9A /* AppDelegate.m */,
 				0A5F49C41981530A00A1DA9A /* TKViewController.h */,
 				0A5F49C51981530A00A1DA9A /* TKViewController.m */,
+				0A6E96D61A889DBA0042CE88 /* ViewController.h */,
+				0A6E96D71A889DBA0042CE88 /* ViewController.m */,
 				0A8C844D1A526D8C00EC8CC6 /* crypt */,
 				0A4CCE001A4D3265001FE73B /* keys */,
 				0A4CCE011A4D3275001FE73B /* data */,
@@ -315,6 +323,8 @@
 				233CD2111A4D8C080012D6D7 /* NSDataAES.m */,
 				233CD20D1A4D8BCC0012D6D7 /* NSDataRSA.h */,
 				233CD20E1A4D8BCC0012D6D7 /* NSDataRSA.m */,
+				0A6E96D31A889BFF0042CE88 /* NSDataCrypto.h */,
+				0A6E96D41A889BFF0042CE88 /* NSDataCrypto.m */,
 			);
 			name = crypt;
 			sourceTree = "<group>";
@@ -432,7 +442,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A6E96D81A889DBA0042CE88 /* ViewController.m in Sources */,
 				0A5F486B1981482A00A1DA9A /* AppDelegate.m in Sources */,
+				0A6E96D51A889BFF0042CE88 /* NSDataCrypto.m in Sources */,
 				233CD20F1A4D8BCC0012D6D7 /* NSDataRSA.m in Sources */,
 				0A5F49C81981530A00A1DA9A /* TKViewController.m in Sources */,
 				0A5F48671981482A00A1DA9A /* main.m in Sources */,

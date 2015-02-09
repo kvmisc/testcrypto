@@ -70,8 +70,6 @@
 
 - (NSData *)AESCryptWithOperation:(CCOperation)operation key:(NSData *)key iv:(NSData *)iv
 {
-  NSMutableData *result = nil;
-
   CCCryptorRef cryptorRef = NULL;
   CCCryptorStatus status = CCCryptorCreate(operation,
                            kCCAlgorithmAES,
@@ -83,7 +81,7 @@
   
   if ( status==kCCSuccess ) {
     NSUInteger bufferSize = CCCryptorGetOutputLength(cryptorRef, [self length], true);
-    result = [[NSMutableData alloc] initWithLength:bufferSize];
+    NSMutableData *result = [[NSMutableData alloc] initWithLength:bufferSize];
 
     void *buffer = [result mutableBytes];
     NSUInteger totalLength = 0;
@@ -103,16 +101,14 @@
       if ( status==kCCSuccess ) {
         totalLength += writtenLength;
         [result setLength:totalLength];
-      } else {
-        result = nil;
+        CCCryptorRelease(cryptorRef);
+        return result;
       }
-    } else {
-      result = nil;
     }
     CCCryptorRelease(cryptorRef);
   }
   
-  return result;
+  return nil;
 }
 
 @end
