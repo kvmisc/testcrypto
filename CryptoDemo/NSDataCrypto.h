@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <Security/Security.h>
 
-
+//  http://stackoverflow.com/questions/10579985/how-can-i-get-seckeyref-from-der-pem-file
+//
 //  //Create a certificate signing request with the private key
 //  openssl req -new -key rsaPrivate.pem -out rsaCertReq.csr
 //
