@@ -12,34 +12,34 @@
 
 @implementation NSData (RSA)
 
-- (NSData *)RSAEncryptedDataWithKey:(SecKeyRef)keyRef
+- (NSData *)RSAEncryptedDataWithKey:(SecKeyRef)pubkey
 {
   NSMutableData *result = nil;
 
-  if ( ([self length]>0) && [self length]<=(SecKeyGetBlockSize(keyRef)-11) ) {
+  if ( ([self length]>0) && [self length]<=(SecKeyGetBlockSize(pubkey)-11) ) {
 
-    size_t size = SecKeyGetBlockSize(keyRef);
+    size_t size = SecKeyGetBlockSize(pubkey);
 
     result = [NSMutableData dataWithLength:size];
 
-    SecKeyEncrypt(keyRef, kSecPaddingPKCS1, [self bytes], [self length], [result mutableBytes], &size);
+    SecKeyEncrypt(pubkey, kSecPaddingPKCS1, [self bytes], [self length], [result mutableBytes], &size);
 
     [result setLength:size];
   }
   return result;
 }
 
-- (NSData *)RSADecryptedDataWithKey:(SecKeyRef)keyRef
+- (NSData *)RSADecryptedDataWithKey:(SecKeyRef)prikey
 {
   NSMutableData *result = nil;
 
-  if ( [self length]==SecKeyGetBlockSize(keyRef) ) {
+  if ( [self length]==SecKeyGetBlockSize(prikey) ) {
 
     size_t size = [self length];
 
     result = [NSMutableData dataWithLength:size];
 
-    SecKeyDecrypt(keyRef, kSecPaddingPKCS1, [self bytes], [self length], [result mutableBytes], &size);
+    SecKeyDecrypt(prikey, kSecPaddingPKCS1, [self bytes], [self length], [result mutableBytes], &size);
 
     [result setLength:size];
   }

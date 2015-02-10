@@ -26,9 +26,9 @@
 
 @interface NSData (RSA)
 
-- (NSData *)RSAEncryptedDataWithKey:(SecKeyRef)keyRef;
+- (NSData *)RSAEncryptedDataWithKey:(SecKeyRef)pubkey;
 
-- (NSData *)RSADecryptedDataWithKey:(SecKeyRef)keyRef;
+- (NSData *)RSADecryptedDataWithKey:(SecKeyRef)prikey;
 
 
 
