@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A4085761A8994D100214CA0 /* cert.der in Resources */ = {isa = PBXBuildFile; fileRef = 0A4085741A8994D100214CA0 /* cert.der */; };
+		0A4085771A8994D100214CA0 /* cert.p12 in Resources */ = {isa = PBXBuildFile; fileRef = 0A4085751A8994D100214CA0 /* cert.p12 */; };
 		0A4CCDFC1A4D325D001FE73B /* pri1024.pem in Resources */ = {isa = PBXBuildFile; fileRef = 0A4CCDF81A4D325D001FE73B /* pri1024.pem */; };
 		0A4CCDFD1A4D325D001FE73B /* pri2048.pem in Resources */ = {isa = PBXBuildFile; fileRef = 0A4CCDF91A4D325D001FE73B /* pri2048.pem */; };
 		0A4CCDFE1A4D325D001FE73B /* pub1024.pem in Resources */ = {isa = PBXBuildFile; fileRef = 0A4CCDFA1A4D325D001FE73B /* pub1024.pem */; };
@@ -30,6 +32,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A4085741A8994D100214CA0 /* cert.der */ = {isa = PBXFileReference; lastKnownFileType = file; path = cert.der; sourceTree = "<group>"; };
+		0A4085751A8994D100214CA0 /* cert.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = cert.p12; sourceTree = "<group>"; };
 		0A4CCDF81A4D325D001FE73B /* pri1024.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pri1024.pem; sourceTree = "<group>"; };
 		0A4CCDF91A4D325D001FE73B /* pri2048.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pri2048.pem; sourceTree = "<group>"; };
 		0A4CCDFA1A4D325D001FE73B /* pub1024.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pub1024.pem; sourceTree = "<group>"; };
@@ -157,6 +161,8 @@
 		0A4CCE001A4D3265001FE73B /* keys */ = {
 			isa = PBXGroup;
 			children = (
+				0A4085741A8994D100214CA0 /* cert.der */,
+				0A4085751A8994D100214CA0 /* cert.p12 */,
 				0A4CCDF81A4D325D001FE73B /* pri1024.pem */,
 				0A4CCDFA1A4D325D001FE73B /* pub1024.pem */,
 				0A4CCDF91A4D325D001FE73B /* pri2048.pem */,
@@ -392,11 +398,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A5F49CF19815D6000A1DA9A /* big.jpg in Resources */,
+				0A4085771A8994D100214CA0 /* cert.p12 in Resources */,
 				0A5F486D1981482A00A1DA9A /* Images.xcassets in Resources */,
 				0A4CCDFF1A4D325D001FE73B /* pub2048.pem in Resources */,
 				0A5F49D419815D6000A1DA9A /* small.jpg in Resources */,
 				0A4CCDFC1A4D325D001FE73B /* pri1024.pem in Resources */,
 				0A4CCDFE1A4D325D001FE73B /* pub1024.pem in Resources */,
+				0A4085761A8994D100214CA0 /* cert.der in Resources */,
 				0A5F49D119815D6000A1DA9A /* plain.txt in Resources */,
 				0A4CCDFD1A4D325D001FE73B /* pri2048.pem in Resources */,
 			);

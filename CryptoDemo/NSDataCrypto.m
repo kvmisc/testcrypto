@@ -8,103 +8,109 @@
 
 #import "NSDataCrypto.h"
 
-#define ReleaseObject(ref) {if(ref){CFRelease(ref);ref=NULL;}}
+#define ValidData(a) (((a)&&([a length]>0))?(a):(nil))
 
 @implementation NSData (Crypto)
 
-- (NSData *)RSAEncryptPublicKey:(SecKeyRef)keyRef
+- (NSData *)RSAEncryptedDataWithPublicKey:(RSA *)rsa
 {
-  size_t cipherBufferSize = SecKeyGetBlockSize(keyRef);
-
-  NSMutableData *cipher = [NSMutableData dataWithLength:cipherBufferSize];
-  SecKeyEncrypt(keyRef,
-                kSecPaddingPKCS1,
-                [self bytes],
-                [self length],
-                [cipher mutableBytes],
-                &cipherBufferSize);
-  [cipher setLength:cipherBufferSize];
-
-  return cipher;
-}
-
-- (NSData *)RSADecryptPrivateKey:(SecKeyRef)keyRef
-{
-  size_t cipherBufferSize = SecKeyGetBlockSize(keyRef);
-  size_t keyBufferSize = [self length];
-
-  NSMutableData *key = [NSMutableData dataWithLength:keyBufferSize];
-  SecKeyDecrypt(keyRef,
-                kSecPaddingPKCS1,
-                [self bytes],
-                cipherBufferSize,
-                [key mutableBytes],
-                &keyBufferSize);
-  [key setLength:keyBufferSize];
-
-  return key;
-}
-
-
-- (NSData *)RSAEncryptPrivateKey:(SecKeyRef)keyRef
-{
-  return nil;
-}
-
-- (NSData *)RSADecryptPublicKey:(SecKeyRef)keyRef
-{
-  return nil;
-}
-
-
-
-+ (SecKeyRef)RSACreatePublicKey:(NSData *)data
-{
-  SecKeyRef keyRef = NULL;
-
-  SecCertificateRef certificateRef = SecCertificateCreateWithData(kCFAllocatorDefault, (__bridge CFDataRef)data);
-  if ( certificateRef ) {
-    SecPolicyRef policyRef = SecPolicyCreateBasicX509();
-    if ( policyRef ) {
-      SecTrustRef trustRef;
-      if ( SecTrustCreateWithCertificates(certificateRef, policyRef, &trustRef)==errSecSuccess ) {
-        SecTrustResultType trustResultType;
-        if ( SecTrustEvaluate(trustRef, &trustResultType)==errSecSuccess ) {
-          keyRef = SecTrustCopyPublicKey(trustRef);
+  if ( [self length]>0 ) {
+    NSMutableData *result = [[NSMutableData alloc] init];
+    if ( rsa ) {
+      if ( [self length]<=(RSA_size(rsa)-11) ) {
+        unsigned char buffer[2048];
+        memset(buffer, 0, 2048);
+        int length = RSA_public_encrypt([self length], [self bytes], buffer, rsa, RSA_PKCS1_PADDING);
+        if ( length>0 ) {
+          [result appendBytes:buffer length:length];
         }
       }
-      ReleaseObject(trustRef);
     }
-    ReleaseObject(policyRef);
+    return ValidData(result);
   }
-  ReleaseObject(certificateRef);
-  
-  return keyRef;
+  return nil;
 }
 
-+ (SecKeyRef)RSACreatePrivateKey:(NSData *)data password:(NSString *)password
+- (NSData *)RSADecryptedDataWithPrivateKey:(RSA *)rsa
 {
-  SecKeyRef keyRef = NULL;
-
-  const void *keys[] =   { kSecImportExportPassphrase };
-  const void *values[] = { (__bridge CFStringRef)password };
-  CFDictionaryRef optionRef = CFDictionaryCreate(NULL, keys, values, 1, NULL, NULL);
-
-  CFArrayRef itemRef = CFArrayCreate(NULL, 0, 0, NULL);
-
-  OSStatus status = SecPKCS12Import((__bridge CFDataRef)data, optionRef, &itemRef);
-  if ( (status==errSecSuccess) && (CFArrayGetCount(itemRef)>0) ) {
-    CFDictionaryRef dictionaryRef = CFArrayGetValueAtIndex(itemRef, 0);
-
-    SecIdentityRef identityRef = (SecIdentityRef)CFDictionaryGetValue(dictionaryRef, kSecImportItemIdentity);
-    if ( SecIdentityCopyPrivateKey(identityRef, &keyRef)!=errSecSuccess ) {
-      keyRef = NULL;
+  if ( [self length]>0 ) {
+    NSMutableData *result = [[NSMutableData alloc] init];
+    if ( rsa ) {
+      if ( [self length]==RSA_size(rsa) ) {
+        unsigned char buffer[2048];
+        memset(buffer, 0, 2048);
+        int length = RSA_private_decrypt([self length], [self bytes], buffer, rsa, RSA_PKCS1_PADDING);
+        if ( length>0 ) {
+          [result appendBytes:buffer length:length];
+        }
+      }
     }
+    return ValidData(result);
   }
-  ReleaseObject(itemRef);
-  ReleaseObject(optionRef);
+  return nil;
+}
 
-  return keyRef;
+
+- (NSData *)RSAEncryptedDataWithPrivateKey:(RSA *)rsa
+{
+  if ( [self length]>0 ) {
+    NSMutableData *result = [[NSMutableData alloc] init];
+    if ( rsa ) {
+      if ( [self length]<=(RSA_size(rsa)-11) ) {
+        unsigned char buffer[2048];
+        memset(buffer, 0, 2048);
+        int length = RSA_private_encrypt([self length], [self bytes], buffer, rsa, RSA_PKCS1_PADDING);
+        if ( length>0 ) {
+          [result appendBytes:buffer length:length];
+        }
+      }
+    }
+    return ValidData(result);
+  }
+  return nil;
+}
+
+- (NSData *)RSADecryptedDataWithPublicKey:(RSA *)rsa
+{
+  if ( [self length]>0 ) {
+    NSMutableData *result = [[NSMutableData alloc] init];
+    if ( rsa ) {
+      if ( [self length]==RSA_size(rsa) ) {
+        unsigned char buffer[2048];
+        memset(buffer, 0, 2048);
+        int length = RSA_public_decrypt([self length], [self bytes], buffer, rsa, RSA_PKCS1_PADDING);
+        if ( length>0 ) {
+          [result appendBytes:buffer length:length];
+        }
+      }
+    }
+    return ValidData(result);
+  }
+  return nil;
+}
+
+
+
++ (RSA *)RSAPublicKey:(NSData *)key
+{
+  if ( [key length]>0 ) {
+    BIO *bio = BIO_new_mem_buf((void *)[key bytes], [key length]);
+    RSA *rsa = PEM_read_bio_RSA_PUBKEY(bio, NULL, 0, NULL);
+    BIO_free(bio);
+    return rsa;
+  }
+  return NULL;
+}
+
++ (RSA *)RSAPrivateKey:(NSData *)key
+{
+  if ( [key length]>0 ) {
+    BIO *bio = BIO_new_mem_buf((void *)[key bytes], [key length]);
+    RSA *rsa = PEM_read_bio_RSAPrivateKey(bio, NULL, 0, NULL);
+    BIO_free(bio);
+    return rsa;
+  }
+  return NULL;
 }
 
 @end

@@ -9,6 +9,7 @@
 #import "TKViewController.h"
 #import "NSDataAES.h"
 #import "NSDataRSA.h"
+#import "NSDataCrypto.h"
 
 @implementation TKViewController
 
@@ -61,11 +62,12 @@
 
 - (void)doit2:(id)sender
 {
-  [self RSASample];
+  [self RSASample1];
 }
 
 - (void)doit3:(id)sender
 {
+  [self RSASample2];
 }
 
 
@@ -167,7 +169,7 @@
   }
 }
 
-- (void)RSASample
+- (void)RSASample1
 {
   NSString *name = nil;
 
@@ -216,6 +218,38 @@
       name = [NSString stringWithFormat:@"67_rsa2048_de_pub_%dto%d.txt", [encrypt length], [decrypt length]];
       [decrypt writeToFile:TKPathForDocumentResource(name) atomically:YES];
     }
+  }
+}
+
+- (void)RSASample2
+{
+  NSData *data = [[NSData alloc] initWithContentsOfFile:TKPathForBundleResource(nil, @"cert.der")];
+  SecKeyRef pubRef = [NSData RSACreatePublicKey:data];
+  data = [[NSData alloc] initWithContentsOfFile:TKPathForBundleResource(nil, @"cert.p12")];
+  SecKeyRef priRef = [NSData RSACreatePrivateKey:data password:@"llll"];
+
+  RSA *pubkey = [NSData RSAPublicKey:_pub1024];
+  RSA *prikey = [NSData RSAPrivateKey:_pri1024];
+
+  NSString *name = nil;
+
+  {
+    NSData *encrypt = [_source1 RSAEncryptedDataWithPublicKey:pubkey];
+    name = [NSString stringWithFormat:@"70_en_pub_%dto%d.dat", [_source1 length], [encrypt length]];
+    [encrypt writeToFile:TKPathForDocumentResource(name) atomically:YES];
+
+    NSData *decrypt = [encrypt RSADecryptedDataWithKey:priRef];
+    name = [NSString stringWithFormat:@"71_de_pri_%dto%d.txt", [encrypt length], [decrypt length]];
+    [decrypt writeToFile:TKPathForDocumentResource(name) atomically:YES];
+  }
+  {
+    NSData *encrypt = [_source1 RSAEncryptedDataWithKey:pubRef];
+    name = [NSString stringWithFormat:@"72_en_pub_%dto%d.dat", [_source1 length], [encrypt length]];
+    [encrypt writeToFile:TKPathForDocumentResource(name) atomically:YES];
+
+    NSData *decrypt = [encrypt RSADecryptedDataWithPrivateKey:prikey];
+    name = [NSString stringWithFormat:@"73_de_pri_%dto%d.txt", [encrypt length], [decrypt length]];
+    [decrypt writeToFile:TKPathForDocumentResource(name) atomically:YES];
   }
 }
 
