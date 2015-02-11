@@ -11,17 +11,17 @@
 
 //  http://stackoverflow.com/questions/10579985/how-can-i-get-seckeyref-from-der-pem-file
 //
-//  //Create a certificate signing request with the private key
-//  openssl req -new -key rsaPrivate.pem -out rsaCertReq.csr
+//  # Create a certificate signing request with the private key
+//  openssl req -new -key private.pem -out cert.csr
 //
-//  //Create a self-signed certificate with the private key and signing request
-//  openssl x509 -req -days 3650 -in rsaCertReq.csr -signkey rsaPrivate.pem -out rsaCert.crt
+//  # Create a self-signed certificate with the private key and signing request
+//  openssl x509 -req -days 3650 -in cert.csr -signkey private.pem -out cert.crt
 //
-//  //Convert the certificate to DER format: the certificate contains the public key
-//  openssl x509 -outform der -in rsaCert.crt -out rsaCert.der
+//  # Convert the certificate to DER format: the certificate contains the public key
+//  openssl x509 -outform der -in cert.crt -out cert.der
 //
-//  //Export the private key and certificate to p12 file
-//  openssl pkcs12 -export -out rsaPrivate.p12 -inkey rsaPrivate.pem -in rsaCert.crt
+//  # Export the private key and certificate to p12 file
+//  openssl pkcs12 -export -inkey private.pem -in cert.crt -out cert.p12
 
 
 @interface NSData (RSA)
